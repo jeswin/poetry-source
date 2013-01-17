@@ -1,3 +1,5 @@
+License: GPL3
+
 Poe3 install instructions from new Ubuntu 12.04
 ==========================================
 sudo apt-get install build-essential
