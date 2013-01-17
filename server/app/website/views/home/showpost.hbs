@@ -1,0 +1,17 @@
+{{#if img}}
+<img src="{{img}}" />
+{{/if}}
+
+{{#if post.selectedParts}}
+<div>
+{{#each post.selectedParts}}
+    <p>{{content}}</p>
+{{/each}}
+</div>
+{{/if}}
+
+<div>
+{{#each authors}}
+    <p><a href="/{{domain}}/{{username}}">{{name}}</a></p>
+{{/each}}
+</div>

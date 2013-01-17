@@ -1,0 +1,764 @@
+/*
+    Design Credits:
+        1. "The" Font Awesome - http://fortawesome.github.com/Font-Awesome 
+        2. Design Shack for Image Stack CSS: http://designshack.net/articles/css/use-pseudo-elements-to-create-an-image-stack-illusion/
+        3. CHAD MAZZOLA for blue pill
+        4. Buck Wilson for LightBox_Me        
+*/       
+
+body { margin: 0; color: #aaa; background: #060606 url(/images/bg-hatch.jpg) repeat; width: 100%; font-size: 14px; font-family: 'Droid Sans', sans-serif; min-width: 960px; }
+
+a, a:visited, a:hover, span.anchor, span.anchor:hover { color: white; text-decoration: none; cursor: pointer }
+    a:hover, span.anchor:hover { text-decoration: underline; color: orange }
+
+
+a img { border: none }
+
+input, select, textarea { font-family: 'Droid Sans', sans-serif; border: 1px solid #999; border-radius: 2px; padding: 4px; margin: 2px 0 2px 0 }
+    input[type="checkbox"] { margin-right: 4px; }
+input[type="file"] { padding: 0 }
+textarea { border: 1px solid #999; }
+em { font-weight: bold }
+
+
+ul { margin:0; padding: 0 }
+li { list-style: none }
+
+h1 { font-size: 24px; }
+h2 { margin:0 0 6px 0; padding: 0; font-size: 18px; }
+h3 { margin:0 0 6px 0; padding: 0; font-size: 16px; }
+
+/* blue pill (CHAD MAZZOLA) - via hellohappy.org
+*******************************************************************************/
+button {
+      background-color: #eee;
+      background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #eee), color-stop(100%, #999));
+      background-image: -webkit-linear-gradient(top, #eee, #999);
+      background-image: -moz-linear-gradient(top, #eee, #999);
+      background-image: -ms-linear-gradient(top, #eee, #999);
+      background-image: -o-linear-gradient(top, #eee, #999);
+      background-image: linear-gradient(top, #eee, #999);
+      border-top: 1px solid #888;
+      border-right: 1px solid #777;
+      border-bottom: 1px solid #666;
+      border-left: 1px solid #777;
+      border-radius: 18px;
+      -webkit-box-shadow: inset 0 1px 0 0 #eee;
+      box-shadow: inset 0 1px 0 0 #eee;
+      color: #333;
+      padding: 5px 16px;
+      text-align: center;
+      text-shadow: 0 -1px 1px #aaa;
+      font-size: 12px;
+      font-weight: bold;
+      text-transform: uppercase;
+  }
+  button:hover {
+    background-color: #eee;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ccc), color-stop(100%, #999));
+    background-image: -webkit-linear-gradient(top, #ccc, #999);
+    background-image: -moz-linear-gradient(top, #ccc, #999);
+    background-image: -ms-linear-gradient(top, #ccc, #999);
+    background-image: -o-linear-gradient(top, #ccc, #999);
+    background-image: linear-gradient(top, #ccc, #999);
+    border-top: 1px solid #777;
+    border-right: 1px solid #777;
+    border-bottom: 1px solid #666;
+    border-left: 1px solid #777;
+    -webkit-box-shadow: inset 0 1px 0 0 #eee;
+    box-shadow: inset 0 1px 0 0 #eee;
+    cursor: pointer; }
+  button:active {
+    border: 1px solid #666;
+    -webkit-box-shadow: inset 0 0 8px 2px #ccc;
+    box-shadow: inset 0 0 8px 2px #999 }
+
+    button i { padding-right: 6px; }
+
+button { margin-left: -2px; }
+button.small { margin-left: 0px; font-size: 11px; padding: 4px 14px 4px 14px }
+button.tiny { margin-left: 0px; font-size: 11px; padding: 2px 12px 2px 12px; text-transform: none; }
+
+/* ========== button =========== */
+
+.container { }
+
+/* MAIN-WINDOW */
+.container .main-window { }
+
+/* SIDEBAR */
+.container .sidebar { right:0; top:0; background: #060606; color: #aaa; padding: 4px 20px 4px 20px; position: fixed; height: 100%; box-shadow: 0px -8px 8px 2px #222 }
+
+@media screen and (min-width: 1600px)
+{
+    .container .sidebar { width: 240px; }
+    .container .main-window { margin-right: 280px; }
+}
+
+@media screen and (min-width: 1200px) and (max-width: 1599px)
+{
+    .container .sidebar { width: 220px; }
+    .container .main-window { margin-right: 260px; }
+}
+
+
+@media screen and (max-width: 1199px)
+{
+    .container .sidebar { display: none !important }
+    .container .main-window { margin-right: 12px; }
+}
+
+/* CONTENT */
+#content { clear: both; padding-bottom: 48px; margin-left: 24px; }
+
+/* GENERIC */
+.hidden { display:none; }
+.visible { display: block }
+label.std { display: block }
+.subtext { color: #666; font-size: 12px; }
+
+div.message { margin: 8px; padding: 8px; font-weight: bold; border-radius: 3px; border: 1px solid #ccc; background: #ffe; color: #333; }
+    div.message.plain { background: none; margin: 0; padding: 4px; font-weight: normal }
+    div.message p.actions { margin: 4px; padding-top: 8px; border-top: 1px dotted #666 }
+    div.message p.text { margin: 4px; }
+        div.message.success { color: #060; }
+            div.message.success button { color: #060 }
+        div.message.alert { color: #600; }
+            div.message.alert button { color: #600 }
+        div.message.error { color: #600; }
+            div.message.error button { color: #600 }            
+            
+.section { margin: 0 20px 20px 20px; border-top: 1px dotted #aaa; padding-top: 12px; }
+    .section p { font-size: 12px; font-weight: normal; margin-top: 0; margin-bottom: 6px; }
+    .section .actions { margin-top: -6px; }
+    
+    .section .section { margin: 20px 0 0 0; }
+    
+span.remove-part { display: none }
+
+/* STANDARD MENU */
+div.std-menu { float: left; margin: 4px 0 12px 0; position: relative; text-align: left }
+    div.std-menu ul { position: relative; height: 14px; padding: 6px 0; font-weight: bold }
+        div.std-menu ul li { float: left; position: relative; padding: 0 32px 0 0; text-align: center; font-size: 12px; text-transform: uppercase }
+            div.std-menu ul li .selected { color: orange; }
+
+
+/* LOGO AND SLOGAN */
+h1.logo { cursor:pointer; padding: 0 0 0 20px; width: 160px; float: left; text-align: center; font-family: 'Dancing Script', serif; font-weight: normal; margin: 4px 0 0 0 }
+    h1.logo a { display: block; }    
+        h1.logo a.title { font-size: 36px;  text-decoration: none; }        
+        h1.logo a.about { font-size: 12px; margin-top: -6px; text-decoration: underline; }
+    h1.logo:hover a { color: orange }
+
+ul.radio {}
+    ul.radio li { 
+        float: left; background: #ccc; width: 100px; padding: 6px; color: #333; text-align: center; border-right: 1px solid #999; 
+        cursor: pointer; font-size: 12px; font-weight: bold;
+        background-image: linear-gradient(bottom, rgb(179,179,179) 38%, rgb(230,230,230) 69%, rgb(250,250,250) 85%);
+        background-image: -o-linear-gradient(bottom, rgb(179,179,179) 38%, rgb(230,230,230) 69%, rgb(250,250,250) 85%);
+        background-image: -moz-linear-gradient(bottom, rgb(179,179,179) 38%, rgb(230,230,230) 69%, rgb(250,250,250) 85%);
+        background-image: -webkit-linear-gradient(bottom, rgb(179,179,179) 38%, rgb(230,230,230) 69%, rgb(250,250,250) 85%);
+        background-image: -ms-linear-gradient(bottom, rgb(179,179,179) 38%, rgb(230,230,230) 69%, rgb(250,250,250) 85%);
+        background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.38, rgb(179,179,179)), color-stop(0.69, rgb(230,230,230)), color-stop(0.85, rgb(250,250,250)));
+    }
+        ul.radio li:first-child { border-top-left-radius: 4px; border-bottom-left-radius: 4px; }
+        ul.radio li:last-child { border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-right: none }
+        
+    ul.radio li.selected {
+        border-right: 1px solid orange; 
+        background-image: linear-gradient(bottom, rgb(252,177,28) 48%, rgb(255,195,105) 70%, rgb(255,220,130) 87%);
+        background-image: -o-linear-gradient(bottom, rgb(252,177,28) 48%, rgb(255,195,105) 70%, rgb(255,220,130) 87%);
+        background-image: -moz-linear-gradient(bottom, rgb(252,177,28) 48%, rgb(255,195,105) 70%, rgb(255,220,130) 87%);
+        background-image: -webkit-linear-gradient(bottom, rgb(252,177,28) 48%, rgb(255,195,105) 70%, rgb(255,220,130) 87%);
+        background-image: -ms-linear-gradient(bottom, rgb(252,177,28) 48%, rgb(255,195,105) 70%, rgb(255,220,130) 87%);
+
+        background-image: -webkit-gradient(
+	        linear,
+	        left bottom,
+	        left top,
+	        color-stop(0.48, rgb(252,177,28)),
+	        color-stop(0.7, rgb(255,195,105)),
+	        color-stop(0.87, rgb(255,220,130))
+        );
+    }
+    
+    ul.radio li:hover {
+        background-image: linear-gradient(bottom, rgb(247,247,166) 43%, rgb(255,255,222) 72%, rgb(255,255,204) 86%);
+        background-image: -o-linear-gradient(bottom, rgb(247,247,166) 43%, rgb(255,255,222) 72%, rgb(255,255,204) 86%);
+        background-image: -moz-linear-gradient(bottom, rgb(247,247,166) 43%, rgb(255,255,222) 72%, rgb(255,255,204) 86%);
+        background-image: -webkit-linear-gradient(bottom, rgb(247,247,166) 43%, rgb(255,255,222) 72%, rgb(255,255,204) 86%);
+        background-image: -ms-linear-gradient(bottom, rgb(247,247,166) 43%, rgb(255,255,222) 72%, rgb(255,255,204) 86%);
+
+        background-image: -webkit-gradient(
+	        linear,
+	        left bottom,
+	        left top,
+	        color-stop(0.43, rgb(247,247,166)),
+	        color-stop(0.72, rgb(255,255,222)),
+	        color-stop(0.86, rgb(255,255,204))
+        );
+    }
+    
+    ul.radio li.disabled, ul.radio li.disabled:hover  {
+        color: #999; cursor: default;
+        background-image: linear-gradient(bottom, rgb(179,179,179) 38%, rgb(230,230,230) 69%, rgb(250,250,250) 85%);
+        background-image: -o-linear-gradient(bottom, rgb(179,179,179) 38%, rgb(230,230,230) 69%, rgb(250,250,250) 85%);
+        background-image: -moz-linear-gradient(bottom, rgb(179,179,179) 38%, rgb(230,230,230) 69%, rgb(250,250,250) 85%);
+        background-image: -webkit-linear-gradient(bottom, rgb(179,179,179) 38%, rgb(230,230,230) 69%, rgb(250,250,250) 85%);
+        background-image: -ms-linear-gradient(bottom, rgb(179,179,179) 38%, rgb(230,230,230) 69%, rgb(250,250,250) 85%);
+        background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.38, rgb(179,179,179)), color-stop(0.69, rgb(230,230,230)), color-stop(0.85, rgb(250,250,250)));
+    }
+
+/* THE MENU ON TOP */    
+.topbar { float: left; width: 560px; }    
+.topbar .menu li { background: no-repeat 12px 2px; background-size: 20px; height: 40px; padding: 18px 0 12px 20px; float: left; 
+                      margin-right: 8px; text-align: center; font-size: 12px; }
+        .topbar .menu li.new-poem { background:url(/images/topbar-new-post.png) no-repeat; padding-left: 30px; }
+        .topbar .menu li.login { display: none; }
+            .topbar .menu li.login span.txt { float: left; color: white; font-weight: bold; margin-right: 4px }
+            .topbar .menu li.login img { float: left; width: 24px; height: 24px; margin-right: 6px; margin-top: -4px; cursor: pointer }            
+            /*
+            .topbar .menu li.login .txt { float: left; color: white; margin-top: 4px; margin-right: 4px; }
+            .topbar .menu li.login i.icon-facebook, .topbar .menu li.login i.icon-twitter { font-size: 16px; float: left; margin-top: 1px; }
+            .topbar .menu li.login .facebook { float: left; margin: 4px 12px 0 -2px }
+            .topbar .menu li.login .twitter { float: left; margin: 4px 0 0 0 } 
+            */
+    .topbar .menu .profile .name { padding-left: 20px; padding-bottom: 2px }
+    .topbar .menu a, .topbar .menu a:visited { font-weight: bold; font-size: 12px; }  
+    
+    
+.topbar .main-message-alert { display: block; color: orange; position: absolute; margin: -12px 0 0 0; font-size: 14px; cursor: pointer }
+    .topbar .main-message-alert .msg-count { font-size: 10px; }
+
+.page-content { clear: both }
+
+/* FLAG */
+.footer { position: fixed; bottom: 0; margin:auto; font-size: 10px; color: #666; }
+    .footer p { text-align: center; }
+    .footer .flag-c1 { color: #FF9933 }
+    .footer .flag-c2 { color: #FFFFFF }
+    .footer .flag-c3 { color: #138808 }
+
+/* FB LOGIN */
+.fb-login-button { }
+.login-view-container { }
+    .login-view-container .main-section { text-align: center; width: 360px; padding: 12px 0 24px 0; }
+
+
+/* FB POST */
+.facebook-share-post-view { font-size: 12px; }
+    .facebook-share-post-view .main-section { width: 320px; padding: 12px; }
+    .facebook-share-post-view h3 { margin: 6px 0; }
+    .facebook-share-post-view textarea { width: 97%; border: 1px solid #ccc; max-height: 180px }
+    .facebook-share-post-view img { max-height: 320px; max-width: 100% }
+    
+/* STANDARD MODAL BOX */
+.modal-popup a, .modal-popup a:hover, .modal-popup a:visited { color: #3388bb }
+.modal-popup > .close-modal { z-index: 100; display: none; position: absolute; right: -18px; top: -18px; font-size: 16px; background: black; color: white; opacity: 0.6; margin: 0; 
+                            padding: 6px 0 0 9px; height: 24px; width: 22px; border-radius: 100%; border: 2px solid #666 }
+    .modal-popup > .close-modal.visible { display: block }
+    .modal-popup > .close-modal.visible:hover { background: #a00; opacity: 1; border: 2px solid #a00 }
+
+.modal-popup .fixed-width { width: 720px; }
+.modal-popup .fixed-width-small { width: 480px; }
+
+.modal-popup .main-section { color: #333; border-radius: 4px; box-shadow: 0px 0px 16px 4px #333; 
+                           background: white url(http://subtlepatterns.com/patterns/light_toast.png); }
+
+
+/* MODAL INSIDE MODAL */
+.modal-popup .modal-modal { background: white url(http://subtlepatterns.com/patterns/light_toast.png); box-shadow: 0 -4px 3px -1px #333; clear: both;
+                          float: left; position: absolute; border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; z-index: 1000 }
+    
+    .modal-popup .modal-modal > .close-modal { z-index: 100; position: absolute; right: 0; top: 8px; font-size: 18px; margin: 0; padding: 0;
+                                           height: 24px; width: 22px; color: #999 }
+        .modal-popup .modal-modal > .close-modal:hover { color: #900 }                                            
+        
+    
+/* POSTS VIEW */
+
+    /* PAGING */
+    div.paginator { width: 200px; float: right; margin: 4px 0 12px 0; font-size: 12px; font-weight: bold; text-transform: capitalize }
+        div.paginator ul { padding: 6px 0; height: 14px }
+        div.paginator li { float: left; padding-right: 12px }
+            div.paginator li.page-number { color: orange }
+            div.paginator li.prev, div.paginator li.next { cursor: pointer }
+            div.paginator li.disabled { color: #333; cursor: default }
+                div.paginator li.disabled a { color: #333; cursor: default }
+            div.paginator li a { text-decoration: none }
+    
+    /* FILTER */
+    div.filter { width: 400px; float: left; margin: 4px 0 12px 0; font-size: 12px; font-weight: bold; text-transform: capitalize }
+        div.filter p { padding: 6px 0; margin: 0; }
+        div.filter p.select a { padding-left: 2px; padding-right: 4px; }
+        div.filter .active .prefix .cancel-filter { text-decoration: none; float: left; font-size: 18px; padding-right: 3px; margin-top: -3px }
+    
+/* POST LIST VIEW */
+.post-list-view { }
+    .post-list-view .viewport { clear: both }    
+    .post-list-view .items { position: relative; }
+
+        .post-list-view-item { cursor: pointer }
+            .post-list-view-item.boxed { color: #333; }
+
+            .post-list-view-item .post-box { border-radius: 4px; padding-bottom: 32px; background: #eee; margin-bottom: 20px }        
+                .post-list-view-item.boxed .parts p { font-family: 'Droid Serif', serif; margin: 8px 6px 8px 8px; color: #333; font-size: 12px; line-height: 16px }
+
+                .post-list-view-item div.tags { float: left; font-size: 10px; margin-right: 4px; margin-top: 8px; }
+                    .post-list-view-item div.tags a { color: #666; padding-right: 3px; text-decoration: underline }
+                        .post-list-view-item div.tags a:hover { color: orange }
+                                                                      
+                .post-list-view-item .authors { float: left; }
+                    .post-list-view-item .authors li { background-size: 24px 24px; width: 24px; height: 24px; float: left; margin-right: 8px; border-radius:100%; 
+                                                                 border: none; box-shadow: 0px 1px 1px 1px #999; }
+                                                                                                          
+                /* JUST TEXT */
+                .post-list-view-item.just-text .parts { border-top: 1px dashed #333; border-bottom: 1px dashed #333; margin-bottom: 6px; max-height: 400px; overflow: hidden }
+                .post-list-view-item.just-text .authors { margin-left: 1px; }
+                .post-list-view-item.just-text h3.title { font-family: 'Droid Serif', serif; font-size: 13px; margin: 8px 4px 6px 2px; font-weight: bold; color: #ccc }
+                .post-list-view-item.boxed.just-text .post-box { background: none; border-top-left-radius: 0; border-top-right-radius: 0 }
+                    .post-list-view-item.boxed.just-text .parts p { margin-left: 0; color: #aaa; font-size: 13px; line-height: 18px }                  
+
+                /* WITH IMAGE */
+                .post-list-view-item.with-image .parts { margin-bottom: 6px; max-height: 400px; overflow: hidden }
+                .post-list-view-item.with-image .authors { margin-left: 6px; }
+                .post-list-view-item.with-image h3.title { font-family: 'Droid Serif', serif; font-size: 12px; margin: 8px 8px 4px 8px }
+                .post-list-view-item.with-image .post-box .background img { width: 100% }
+                
+                /* CONTRIB ALERT */
+                .post-list-view-item .contrib-alert { background: white; padding: 6px 0 6px 12px; font-size: 14px; color: #333; margin: 0; }
+                    .post-list-view-item .contrib-alert .icon { float: left; }
+                    .post-list-view-item .contrib-alert .subtext { color: #666; margin-left: 8px; width: 80%; font-size: 11px }
+
+
+/* POST VIEW */
+.post-view { color: #333; }    
+    .post-view .post-box { margin: 0 auto 12px auto; float: left; }
+        .post-view .post-box .background img { width: 100% }
+        .post-view .post-box .background .credits { margin: 4px 0 }
+        
+    .post-view .post-box .attachment-credits { font-size: 11px; position: absolute; margin-left: 8px; top:0; background: #666; opacity: 0.5; padding: 3px; border-radius: 2px; color: white; }    
+        .post-view .post-box .attachment-credits a { color: white; }
+    
+    .post-view .parts { padding: 0px 28px 0 20px; font-family: 'Droid Serif', serif; }
+        .post-view .parts h3 { margin: 0.7em 0 0.1em 0; }
+        .post-view .parts .post-text, .post-view .parts p { margin: 0.8em 0 }
+    
+    .post-view .authors { margin-left: 22px; }
+        .post-view .authors li { width: 50px; height: 50px; background-size: 50px 50px; float: left; margin-right: 8px; cursor: pointer; border-radius:100%; border: none; box-shadow: 0px 1px 1px 1px #999; }
+
+    
+    /* PARTS AND ADD PART */
+    .post-view .add-part textarea { width: 420px; box-shadow: inset 0 0 10px #666; background: transparent; border: 1px solid #999; font-size: 18px; }
+        .post-view.free-verse .add-part textarea { height: 160px; font-size: 16px; }
+        
+    
+    /* PART CONTRIBUTION SELECT */
+    .post-view .part-select-item { clear: both; margin: 8px 0 0 0; padding: 8px; border: 1px solid #ccc; border-radius: 3px;
+                                   background: #ffe; cursor: pointer; font-family: 'Droid Serif', serif; }
+        .post-view .part-select-item:hover { font-weight: bold }
+        .post-view .part-select-item img { width: 24px; height: 24px; border-radius: 100%; float: left; }
+        .post-view .part-select-item .post-text { float: left; margin: 4px 0 0 10px; font-size: 14px; }
+
+
+    /* PART CONTRIBUTION LISTING */
+    .post-view .part-listing li { clear: both; margin: 0; padding: 4px; font-family: 'Droid Serif', serif; }
+        .post-view .part-listing li img { width: 24px; height: 24px; border-radius: 100%; float: left; }
+        .post-view .part-listing .post-text { float: left; margin: 4px 0 0 10px; font-size: 14px; }
+        
+
+    /* CONTENT ERROR */
+    .post-view .content-error { margin: -8px 0 12px 0; color: #900; }
+
+        
+    /* POST BUTTONS: LIKE AND SETTINGS ICON */    
+    .post-view .post-buttons { float: right; margin-right: 16px; }
+        .post-view .post-buttons i { font-size: 32px; margin-top: -12px; margin-right: 6px; cursor: pointer; }
+            .post-view .post-buttons i.settings-button { color: gray }
+                .post-view .post-buttons i.settings-button:hover { color: orange }
+
+            .post-view .post-buttons i.icon-heart-empty { color: gray }
+                .post-view .post-buttons i.icon-heart-empty:hover { color: red }
+            .post-view .post-buttons i.icon-heart { color: red }
+                .post-view .post-buttons i.icon-heart:hover { color: gray }
+        
+    
+    /* POST SETTINGS */
+    .post-view .post-box form.post-settings { font-size: 12px; }
+        .post-view .post-box form.post-settings input.tags { width: 360px; }
+        .post-view .post-box form.post-settings textarea.notes, .post-view .post-box form.post-settings textarea.message-to-collaborators { height: 64px; width: 360px; }        
+        .post-view .post-box form.post-settings input.image-url { width: 360px; }
+        .post-view .post-box form.post-settings input.credits-name { width: 148px; }
+        .post-view .post-box form.post-settings input.credits-website { width: 198px; }
+
+
+        .post-view .post-box .delete-unpublish { font-size: 12px; border-top: 1px dotted #aaa }
+            .post-view .post-box .delete-unpublish a { color: #600 }
+            .post-view .post-box .delete-unpublish button { color: #600 }
+            
+            
+        
+    /* UNDO BUTTON */
+    .post-view .parts .last { color: #501 }
+    .post-view .parts span.remove-part { cursor: pointer; background: #501; color: white; text-transform: uppercase; font-weight: bold; font-size: 11px; 
+                                         display: block; float: right; font-family: 'Droid Sans', sans-serif; padding: 4px; border-radius: 3px }
+    .post-view .parts .last.selected { padding: 4px 4px 4px 8px; border-radius: 3px; background: #ccc; margin-bottom: 8px;  }
+    
+    /* JUST TEXT */
+    .post-view.just-text .post-box { padding-top: 12px; }
+    
+    
+    /* GALLERY */
+    .post-view .gallery-nav { margin-left: 24px; color: #ccc }
+        .post-view .gallery-nav .left-cursor, .post-view .gallery-nav .right-cursor { cursor: pointer }
+    .post-view .gallery { float: left; margin-left: 20px; margin-right: 20px; width: 160px; padding: 0 12px 0 0; overflow: hidden; padding: 0 }
+        .post-view .gallery li { cursor: pointer; color: #ccc; float: left; margin: 0 0 8px 4px; }
+            .post-view .gallery li div.just-text { background: #768590; margin: 0; overflow: hidden; height: 76px; width: 156px }
+            .post-view .gallery li div.just-text p { padding-left: 12px; height: 180px; width: 300px; font-size: 14px; margin-top: 12px; font-family: 'Droid Serif', serif; }
+            .post-view .gallery li div.with-image { margin: 0; height: 76px; }
+            .post-view .gallery li div.with-image div.container { height: 76px; width: 76px; background-repeat: no-repeat; background-size: cover }
+
+            .post-view .gallery li { filter: grayscale(100%); -webkit-filter: grayscale(100%); -moz-filter: grayscale(100%); -ms-filter: grayscale(100%); -o-filter: grayscale(100%); }
+            .post-view .gallery li:hover, .post-view .gallery li.selected { filter: none; -webkit-filter: none; -moz-filter: none; -ms-filter: none; -o-filter: none; }
+            
+    /* NOTES */
+    .post-view .notes { clear: both; color: #666; font-size: 11px; }    
+    
+    /* POST-DETAILS */
+    .post-view .post-details { clear:both; color: #666; font-size: 11px; }
+        .post-view .post-details p { margin: 6px 0 }
+            .post-view .post-details a { color: #999; padding-right: 4px; }
+            .post-view .post-details a:hover { color: orange }
+        
+    /* COMMENTS */
+    .post-view .comments { color: #666; margin-top: 12px; border-top: 1px dashed #333; margin-bottom: 32px }
+        .post-view .comments h3 { font-size: 12px; margin: 12px 0 4px 0; font-weight: normal }        
+            .post-view .comments h3 a { color: #999 }
+                .post-view .comments h3 a:hover { color: orange }
+        .post-view .comments p.form { margin: 2px 0 }
+        .post-view .comments textarea { color: #999; background: none; border: 1px solid #333; width: 320px; height: 72px }
+
+        .post-view .comments ul { margin-left: 12px; margin-top: 20px; }
+            .post-view .comments li { clear: both; margin-bottom: 24px; }
+                .post-view .comments a.profile-pic { display: block; float: left; width: 32px; }
+                    .post-view .comments a.profile-pic img { width: 24px; height: 24px; }
+                .post-view .comments h4 { margin-left: 32px; margin: 2px 0 4px 0; font-size: 12px; }
+                    .post-view .comments h4 a { color: #999 }
+                        .post-view .comments h4 a:hover { color: orange }
+                .post-view .comments .content { margin-left: 32px; font-size: 12px; }
+        
+    /* SOCIAL + SHARING */
+    .post-view .social-share { margin: 12px 0 0 0; font-size: 12px; }
+    .post-view .social-share .social-action { float: left; margin: 2px 8px 0 0; color: #999 }
+    .post-view .social-share .social-app img { float: left; width:16px; height: 16px; cursor: pointer }
+    .post-view .social-share .social-app a { margin: 2px 12px 0 2px; float: left; color: #999 }
+        .post-view .social-share .social-app a:hover { color: orange }
+        
+        
+/* NEW POST VIEW */
+.new-post-view { margin: 20px auto auto auto; width: 540px; border-radius: 4px; background: #333; padding: 16px; }    
+    .new-post-view h1 { margin-top: 0 }
+    .new-post-view h2 { color: #CCC; font-size: 16px; }
+    .new-post-view a { color: #3388bb }    
+    .new-post-view .selection { clear: both; margin-bottom: 20px; }
+
+    /* SPEECH BUBBLES */
+    .new-post-view .speech-bubble { margin-top: -66px; position: absolute; }    
+        .new-post-view .speech-bubble a { color: white }
+        .new-post-view .speech-bubble.haiku { margin-left: -54px; }
+        .new-post-view .speech-bubble.six-word-story { margin-left: 84px; }
+        .new-post-view .speech-bubble.quote { margin-left: 178px; }
+        .new-post-view .speech-bubble.free-verse { margin-left: 278px; }
+
+    .new-post-view .create-post-section { font-size: 12px; clear: both; }        
+        .new-post-view .create-post-section .post-box { color: #333; border-radius: 4px; padding: 12px; box-shadow: 0px 0px 16px 4px #333; 
+                           background: White url(http://subtlepatterns.com/patterns/light_toast.png); }
+            
+            .new-post-view .create-post-section .post-box .background .pic-container img.picture { width: 100% }
+            .new-post-view .create-post-section .post-box .background .pic-container img.loading { float: left; padding: 12px; }
+            .new-post-view .create-post-section .post-box .background .pic-container .text { float: left; margin: 24px 0 0 6px; }
+                
+            .new-post-view .create-post-section div.picture-options { margin:0; }
+                .new-post-view .create-post-section div.picture-options .bg { opacity: 0.7; height: 48px; width: 516px; margin: -51px 0 0 0; background: black }
+                .new-post-view .create-post-section div.picture-options p { font-size: 11px; position: absolute; margin: -30px 0 0 12px; color: white }
+                    .new-post-view .create-post-section div.picture-options span.text, .new-post-view .create-post-section div.picture-options a { display: block; float: left }
+                    .new-post-view .create-post-section div.picture-options p a { color: white; margin-right: 12px; }
+                        .new-post-view .create-post-section div.picture-options p a:hover { color: orange }
+                        .new-post-view .create-post-section div.picture-options .effects { display: block; width: 400px; margin-left: 250px; }
+                            .new-post-view .create-post-section div.picture-options .effects .text { width: 100px; text-align: right; text-transform: capitalize }
+                            .new-post-view .create-post-section div.picture-options .effects a { margin: 0 0 0 4px; margin-top: -10px }
+                                .new-post-view .create-post-section div.picture-options .effects a.image-effect.selected:hover { cursor: default }
+                            .new-post-view .create-post-section div.picture-options .effects img { float: left; height: 32px; width: 32px; }
+                                .new-post-view .create-post-section div.picture-options .effects a.image-effect.selected img { border: 2px solid orange; margin-top: -2px }
+            
+            .new-post-view .create-post-section .picture-credits { text-align: right; margin: 4px 0 4px 0 }
+                .new-post-view .create-post-section input.image-credits-name { margin-right: 14px; width: 144px; }
+                .new-post-view .create-post-section input.image-credits-url { width: 232px; }
+        
+        .new-post-view .picture-section .message { text-align: left; margin-left: 32px; }
+        .new-post-view .create-post-section .upload-box { background: #ccc; margin-bottom:12px; padding-top: 80px; text-align: center; height: 120px; font-size: 12px;  }
+        .new-post-view .create-post-section .upload-box input.image-url { width: 300px;  }
+        
+        .new-post-view .create-post-section form .tags { width: 300px; }        
+        .new-post-view .create-post-section input.tags { width: 300px; }
+        
+        .new-post-view .create-post-section  { clear: both; }
+        .new-post-view .create-post-section .post-title-input { clear: both; }
+
+        .new-post-view .create-post-section .post-type-form { clear: both }
+
+        /* HAIKU */
+        .new-post-view .create-post-section .haiku-form textarea.content { box-shadow: inset 0 0 10px #666; width: 510px; background: transparent; border: 1px solid #999; font-size: 20px; }
+            .new-post-view .create-post-section .haiku-form .solo textarea.content { height: 82px }
+            .new-post-view .create-post-section .haiku-form .collaborative textarea.content { height: 52px; }        
+
+        /* SIX-WORD-STORY */
+        .new-post-view .create-post-section .six-word-story-form input.content { box-shadow: inset 0 0 10px #666; width: 510px; background: transparent; border: 1px solid #999; font-size: 22px; }
+
+        /* QUOTE */
+        .new-post-view .create-post-section .quote-form textarea.content { box-shadow: inset 0 0 10px #666; width: 510px; background: transparent; border: 1px solid #999; 
+                                                            height: 82px; font-size: 20px; }
+
+        /* FREE VERSE */
+        .new-post-view .create-post-section .free-verse-form input.title { box-shadow: inset 0 0 10px #666; width: 510px; background: transparent; border: 1px solid #999; font-size: 20px; }        
+        .new-post-view .create-post-section .free-verse-form textarea.content { box-shadow: inset 0 0 10px #666; width: 510px; background: transparent; border: 1px solid #999; 
+                                                                 height: 210px; font-size: 16px; }
+
+        .new-post-view .content-error { margin-top: -12px; color: #900; }
+
+/* USER LIST VIEW */
+.modal-popup .user-list-view { }
+    .modal-popup .user-list-view .main-section { padding: 16px 16px 24px 16px; }
+        .modal-popup .user-list-view li { clear: both; padding: 6px; }
+            .modal-popup .user-list-view li img { width: 32px; float: left; margin-right: 8px; }            
+            .modal-popup .user-list-view li a.name { float: left; padding-top: 8px; font-weight: bold }
+
+/* EDIT USER */
+.modal-popup .edit-form { padding: 24px 12px 12px 16px; font-size: 12px; }
+    .modal-popup .edit-form .left { float: left; width: 200px; }
+        .modal-popup .edit-form .left p:first-child { margin-top: 0; padding-top: 0 }
+    .modal-popup .edit-form .right { float: left }
+        .modal-popup .edit-form .about { width: 400px; height: 220px; }
+        .modal-popup .edit-form .twitter-username { width: 160px; }
+        .modal-popup .edit-form .website { width: 300px; }
+    .modal-popup .edit-form .profile-pic img { max-width: 184px; }
+    
+/* USER VIEW */
+.user-view ul.links li { height: 32px; padding: 3px 12px 0 26px; font-size: 12px; float: left; }
+    .user-view ul.links li.facebook { background: url(/images/facebook.png) no-repeat; background-size: 20px 20px; }
+    .user-view ul.links li.twitter { background: url(/images/twitter.png) no-repeat; background-size: 20px 20px; }
+    .user-view ul.links li.pinterest { background: url(/images/pinterest.png) no-repeat; background-size: 20px 20px; }
+    
+.user-view .following-mark { display: block; font-size: 12px; text-transform: uppercase; margin-top: 26px; font-weight: bold }
+    .user-view .following-mark i { margin-right: 3px; }
+            
+    .user-view .user-info { margin: 10px auto 24px auto; padding: 0 16px; border-radius: 4px; }
+        .user-view .user-info .left-pane { float: left; width:200px; margin-top: 8px; padding-right: 20px; border-right: 1px dotted #333 }
+            .user-view .user-info .left-pane div.profile-pic { text-align: center }
+                .user-view .user-info .left-pane div.profile-pic img { max-width: 200px; border-radius: 4px }
+
+    .user-view .user-info .follow { margin-right: 24px; float: left; }
+        .user-view .user-info .follow:first-child { clear: both }
+        .user-view .user-info .follow h3 { margin: 4px 0; font-size: 14px; float: left; }
+        .user-view .user-info .follow a.all { display: block; float: left; padding-top: 5px; padding-left: 6px; font-size: 12px; }
+        .user-view .user-info .follow .people { display: block; clear: both; }
+                .user-view .user-info .follow .people img { width: 32px; height: 32px; }
+
+    .user-view .user-info .actions { clear: both; text-align: center; margin-top: 8px }
+                
+        .user-view .user-info .details { overflow: hidden; margin-left: 28px; padding-left: 28px; }
+            .user-view .user-info .details h2 { float:left; padding-right: 12px; color: orange; font-size: 40px; font-weight: normal; font-family: 'Dancing Script', serif; }
+            .user-view .user-info .details .edit-link { display: block; padding-top: 24px; font-size: 12px; }
+            .user-view .user-info .details .about { clear: both; max-width: 500px; font-size: 18px; font-family: 'Droid Serif', serif; }
+            .user-view .user-info .actions { clear: both; font-size: 12px; }   
+    
+    .user-view div.tag-list-view-item { cursor: pointer }        
+    .user-view div.tag-list-view-item div.just-text { background: #768590; margin: 0; overflow: hidden; height: 200px; }
+        .user-view div.tag-list-view-item div.just-text p { padding-left: 12px; height: 300px; width: 500px; font-size: 32px; 
+                                                             font-family: 'Droid Serif', serif; text-shadow: 0px 1px 1px #333, 0 0 0 black, -1px 0px 3px #333 }
+    .user-view div.tag-list-view-item div.with-image { background: #768590; margin: 0; height: 200px; }
+        .user-view div.tag-list-view-item div.with-image div.container { height: 200px; width: 200px; background-repeat: no-repeat; background-size: cover }
+    .user-view div.tag-list-view-item .tag-details { font-size: 12px; text-align: center; margin: 0 0 20px 0; clear: both }
+    
+    .user-view .page-content .empty { font-family: 'Droid Serif', serif; font-size: 16px }
+    
+    .user-view .page-content .mailbox { }
+        .user-view .page-content .mailbox .threads > li { clear: both; }
+            .user-view .page-content .mailbox .threads > li img { width: 32px; height: 32px; float: left; }
+
+            .user-view .page-content .mailbox .threads > li h3 { margin-left: 50px; font-size: 14px; }
+            
+            .user-view .page-content .mailbox .threads > li { margin-bottom: 12px; }
+            .user-view .page-content .mailbox .threads > li .messages { clear: both; float: left; margin: -6px 0 0px 50px }
+                .user-view .page-content .mailbox .threads > li .show-all { clear: both; font-size: 12px; margin: 0 0 0 48px; cursor: pointer }
+                    .user-view .page-content .mailbox .threads > li .show-all span { text-decoration: underline }
+                .user-view .page-content .mailbox .threads > li .messages > li { margin-bottom: 6px }
+                    .user-view .page-content .mailbox .threads > li .messages > li h4.subject { margin: 12px 0 4px 0; padding: 0 }
+                    .user-view .page-content .mailbox .threads > li .messages > li .message-body p { font-size: 12px; margin: 0 0 8px 0; padding: 0 }
+                        .user-view .page-content .mailbox .threads > li .messages > li .message-body p.subtext { margin-left: 12px }
+
+
+/* SIDEBAR CONTENT */
+/* -- showcase */
+.sidebar .showcase { }
+.sidebar .showcase h3 { font-size: 14px; margin: 12px 0 0 0 }
+    .sidebar .showcase p.author { font-size: 12px; margin: 4px 0; font-style: italic }
+    .sidebar .showcase p.image { margin: 12px 0; padding: 0; } 
+        .sidebar .showcase p.image img { max-height: 150px; max-width: 100%; }
+    .sidebar .showcase p.details { margin: 0 0 8px 0; font-size: 12px; }
+
+.sidebar .notifications { }
+    .sidebar .notifications .notification { clear: both; margin-top: 8px; padding-top: 8px; }
+        .sidebar .notifications .notification img { float: left; margin: 1px 8px 0 0; width: 24px; height: 24px }
+        .sidebar .notifications .notification p { margin: 0 0 0 32px; font-size: 12px; }    
+        .sidebar .notifications .notification a { text-decoration: none }
+        
+
+@media screen and (min-width: 1200px) and (max-width: 1599px)
+{
+    .sidebar .showcase h3 { font-size: 13px; margin: 10px 0 0 0 }
+        .sidebar .showcase p.author { font-size: 11px; margin: 4px 0; font-style: italic }
+        .sidebar .showcase p.image { margin: 12px 0 8px 0; padding: 0; } 
+            .sidebar .showcase p.image img { max-height: 120px; max-width: 100%; }
+        .sidebar .showcase p.details { margin: 0 0 8px 0; font-size: 11px; }
+
+    .sidebar .notifications .notification { clear: both; margin-top: 8px; padding-top: 8px; }
+        .sidebar .notifications .notification img { margin: 1px 6px 0 0; width: 20px; height: 20px }
+        .sidebar .notifications .notification p { margin: 0 0 0 28px; font-size: 11px; }    
+}  
+
+/* This is from the image-stacking css by design shack */
+/* http://designshack.net/articles/css/use-pseudo-elements-to-create-an-image-stack-illusion/ */
+.stack-container div[class*='stack'] {
+	float: left;
+	position: relative;
+	margin: 12px 25px 25px 25px;
+}
+
+.stack-container div[class*='stack'], .stack-container div[class*='stack']:before, .stack-container div[class*='stack']:after {
+	border: 6px solid #fff;
+	height: 200px; width: 200px;
+	-webkit-box-shadow: 2px 2px 5px rgba(0,0,0,0.8);
+	-moz-box-shadow: 2px 2px 5px rgba(0,0,0,0.8);
+	box-shadow: 2px 2px 5px rgba(0,0,0,0.8);
+}
+ 
+.stack-container div[class*='stack']:before, .stack-container div[class*='stack']:after {
+	background: #768590;
+	content: "";
+	position: absolute;
+	z-index: -1;
+
+	/*Dirty IE8 hack*/	
+	height: 0px\9; width: 0px\9; 
+	border: none\9;
+}
+ 
+.stack-container div[class*='stack']:before {
+	background: #eff4de;
+}
+
+/*STACK ONE*/
+.stackone:before {
+	top: 4px;
+	left: -6px;
+}
+ 
+.stackone:after {
+	top: -2px;
+	left: -6px;
+}
+ 
+/*STACK TWO*/
+.stacktwo:before {
+	top: 0px;
+	left: -10px;
+	-webkit-transform: rotate(-5deg);
+	-moz-transform: rotate(-5deg);
+	-o-transform: rotate(-5deg);
+	-ms-transform: rotate(-5deg);
+	transform: rotate(-5deg);
+}
+ 
+.stacktwo:after {
+	top: 5px; left: 0px;
+	-webkit-transform: rotate(4deg);
+	-moz-transform: rotate(4deg);
+	-o-transform: rotate(4deg);
+	-ms-transform: rotate(4deg);
+	transform: rotate(4deg);
+}
+ 
+/*STACK THREE*/
+.stackthree:before {
+	top: 5px;
+	left: -15px;
+	z-index: -1;
+	-webkit-transform: rotate(-10deg);
+	-moz-transform: rotate(-10deg);
+	-o-transform: rotate(-10deg);
+	-ms-transform: rotate(-10deg);
+	transform: rotate(-10deg);
+}
+ 
+.stackthree:after {
+	top: -2px;
+	left: -10px;
+	-webkit-transform: rotate(-5deg);
+	-moz-transform: rotate(-5deg);
+	-o-transform: rotate(-5deg);
+	-ms-transform: rotate(-5deg);
+	transform: rotate(-5deg);
+}
+
+/*STACK FOUR*/
+.stackfour:before {
+	top: 0px;
+	left: -10px;
+	-webkit-transform: rotate(-2deg);
+	-moz-transform: rotate(-2deg);
+	-o-transform: rotate(-2deg);
+	-ms-transform: rotate(-2deg);
+	transform: rotate(-2deg);
+}
+ 
+.stackfour:after {
+	top: 5px; left: 0px;
+	-webkit-transform: rotate(2deg);
+	-moz-transform: rotate(2deg);
+	-o-transform: rotate(2deg);
+	-ms-transform: rotate(2deg);
+	transform: rotate(2deg);
+}
+
+/* 
+    SPEECH BUBBLE 
+    http://acidmartin.wordpress.com/2010/11/25/creating-a-speech-bubble-with-css3-and-without-additional-markup/
+*/
+.speech-bubble
+  {
+   width: 200px;
+   padding: 10px;
+   background: #404040;
+   color: #fff;
+   font-size: 12px;
+   line-height: 1.4em;
+   -moz-border-radius: 6px;
+   -webkit-border-radius: 6px;
+   border-radius: 6px;
+  }
+  .speech-bubble:after
+  {
+   content: "";
+   border: solid 10px transparent; /* set all borders to 10 pixels width */
+   border-top-color: #404040; /* the callout */
+   border-bottom: 0; /* we do not need the bottom border in this case */
+   width: 0;
+   height: 0;
+   overflow: hidden;
+   display: block;
+   position: relative;
+   bottom: -20px; /* border-width of the :after element + padding of the root element */
+   margin: auto;
+  }
+

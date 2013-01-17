@@ -1,0 +1,100 @@
+<div class="std-modal content-box post-view {{displayClass}} {{post.type}} template-postview">
+    {{#if isGallery}}
+        <p class="gallery-nav hidden">
+            <span class="left-cursor"><i class="icon-arrow-left"></i> prev </span>| <span class="right-cursor">next <i class="icon-arrow-right"></i></span>
+        </p>        
+        <div class="gallery" style="display:none">            
+        </div>
+    {{/if}}    
+    <div class="post-frame" style="float:left; width: 920px;">
+        <div class="main-section post-box" style="display:none">
+            {{#if attachmentIsImage}}
+            <div class="background">
+                <img src="{{ post.attachment }}" alt="">
+                {{{attachmentCredits}}}                
+            </div>
+            {{/if}}
+            
+            <div class="message" style="display:none"></div>
+
+            <div class="parts">
+                {{{formattedParts}}}
+            </div>
+            
+            {{{partEditor}}}
+
+            <p class="post-buttons">
+                <i class="like-button"></i>
+                <i class="settings-button icon-cog" style="display:none"></i>
+            </p>
+            
+            <ul class="authors"">
+                {{#each authors}}
+                <li data-domain="{{domain}}" data-username="{{username}}" style="background-image:url({{thumbnail}});" alt="{{name}}" class="profile-pic" /></li>
+                {{/each}}
+            </ul>
+            <!-- 
+            <div class="fb-like-container">
+                <fb:like send="false" layout="button_count" width="90" show_faces="false"></fb:like>
+            </div>
+            -->        
+        </div>         
+                
+        {{#if notes}}
+            <div class="notes" style="display:none">
+                {{{notes}}}
+            </div>
+        {{/if}}
+        
+        <div class="post-details" style="display:none">            
+            {{#if post.likes}}
+                <p class="likes">
+                    <i class="icon-heart"></i>
+                    {{#each post.likes}}
+                        <a href="/{{domain}}/{{username}}" alt="{{name}}">{{name}}</a> 
+                    {{/each}}
+                </p>
+            {{/if}}
+            <p>
+                Posted {{postedAt}}. 
+                {{#if post.tags}}
+                    Tagged 
+                    {{#each post.tags}}
+                        <a href="{{../tagPrefix}}/tagged/{{.}}">#{{.}}</a>
+                    {{/each}}
+                {{/if}}
+            </p>
+        </div>
+        
+        {{#if isComplete}}
+        <div class="social-share hidden">
+            <span class="social-action"></span> 
+            <div class="facebook social-app">
+                <img src="/images/facebook.png" /><a class="facebook-action" href="#">Facebook</a>
+            </div>
+            <div class="twitter social-app">
+                <img src="/images/twitter.png" /><a href="#">Twitter</a>
+            </div>
+            <div class="pinterest social-app" style="display:none">
+                <img src="/images/pinterest.png" /><a href="#">Pinterest</a>
+            </div>
+            <div style="clear: both"></div>
+        </div>
+        {{else}}
+        <div class="social-share hidden">
+            <div class="facebook social-app">
+                <img src="/images/facebook.png" /><a class="facebook-action" href="#">Invite contributors</a>
+            </div>
+            <div class="twitter social-app">
+                <img src="/images/twitter.png" /><a href="#">Tweet this</a>
+            </div>
+            <div style="clear: both"></div>
+        </div>        
+        {{/if}}
+        
+        
+        <div class="comments-container hidden">
+            {{comments}}        
+        </div>
+    </div>
+</div>

@@ -1,0 +1,68 @@
+<div class="template-userinfo">
+    <div class="left-pane">
+        <div class="profile-pic">
+            <img src="{{picture}}" alt="{{name}}" />
+        </div>  
+        {{#if isAutheticated}}
+            {{#unless self}}
+            <div class="actions">
+                <span class="following hidden">
+                    <button class="small">Unfollow</button>
+                </span>
+                <span class="not-following hidden">
+                    <button class="small">Follow</button>
+                </span>
+            </div>
+            {{/unless}}
+        {{/if}}         
+    </div>
+    <div class="details">
+        <h2>{{name}}</h2>
+        <span class="following-mark hidden"><i class="icon-ok"></i>Following</span>
+
+        {{#if self}}
+            <a class="edit-link" href="/{{domain}}/{{username}}/edit">Edit Account</a>
+        {{/if}}
+        
+        <div class="about">
+            {{{about}}}
+        </div>
+        
+        {{#if showLinks}}
+        <ul class="links">
+            {{#if facebookUsername}}
+            <li class="facebook"><a href="http://www.facebook.com/{{facebookUsername}}">{{name}}</a></li>
+            {{/if}}
+            {{#if twitterUsername}}
+            <li class="twitter"><a href="http://www.twitter.com/{{twitterUsername}}">{{twitterUsername}}</a></li>
+            {{/if}}
+        </ul>
+        {{/if}}
+
+        <div>
+            {{#if following}}
+            <div class="follow">
+                <h3>Following {{followingCount}}</h3> <a href="#" class="all following">show</a>
+                <p class="people">
+                    {{#each following}}
+                        <a href="/{{domain}}/{{username}}"><img src="{{thumbnail}}" alt="{{name}}" /></a>
+                    {{/each}}
+                </p>
+            </div>
+            {{/if}}
+            
+            {{#if followers}}
+            <div class="follow">
+                <h3>{{followerCount}} Followers</h3> <a href="#" class="all followers">show</a>
+                <p class="people">
+                    {{#each followers}}
+                        <a href="/{{domain}}/{{username}}"><img src="{{thumbnail}}" alt="{{name}}" /></a>
+                    {{/each}}                                
+                </p>
+            </div>
+            {{/if}}       
+        </div>              
+    </div>    
+    <div style="clear:both"></div>
+</div>
+

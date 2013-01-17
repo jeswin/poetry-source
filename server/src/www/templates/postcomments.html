@@ -1,0 +1,26 @@
+<div class="comments template-postcomments">
+    {{#if comments}}
+        <h3>Comments ({{comments.length}}) <span class="add-comment-link"><a href="#" class="new-comment">Add a comment</a></span></h3>
+    {{else}}
+        <h3><span class="add-comment-link"><a href="#" class="new-comment">Add a comment</a></span></h3>
+    {{/if}}
+    <p class="comment-form" style="display:none">                
+        <textarea></textarea><br />
+        <button class="tiny save">Save Comment</button>
+    </p>
+    {{#if comments}}
+    <ul>
+        {{#each comments}}
+            <li>
+                <a class="profile-pic" href="/{{createdBy.domain}}/{{createdBy.username}}">
+                    <img src="{{createdBy.thumbnail}}" alt="{{createdBy.name}}" />
+                </a>
+                <h4><a href="/{{createdBy.domain}}/{{createdBy.username}}">{{createdBy.name}}</a></h4>
+                <div class="content">
+                {{content}}
+                </div>
+            </li>
+        {{/each}}
+    </ul>
+    {{/if}}
+</div>

@@ -1,0 +1,511 @@
+<div class="content-box fixed-width edit-user template-edituserview">
+    <div class="edit-form main-section">
+        <div class="left">
+            <p class="profile-pic">
+                <img src="{{picture}}" alt="{{name}}" />
+            </p>
+        </div>
+        <div class="right">
+            <h2>{{name}}</h2>
+            <p>
+                Write something about yourself <br />
+                <textarea class="about">{{about}}</textarea>                
+            </p>
+            <p>
+                Twitter username
+                <br />
+                <input class="twitter-username" type="text" value="{{twitterUsername}}" />
+            </p>            
+            <p>
+                Website url
+                <br />
+                <input class="website" type="text" value="{{website}}" /> 
+            </p>            
+            <p>
+                <button class="save"><i class="icon-ok"></i>Save</button>
+            </p>
+        </div>
+        <div style="clear:both"></div>
+    </div>
+</div>
+<div class="new-post-view content-box template-newpostview">    
+    <h1>New Poem</h1>
+
+    <div class="authoring-mode selection">
+        <h2>How do you want to write?</h2>
+        <ul class="radio">
+            <li class="selected" data-value="solo">By myself</li>
+            <li data-value="collaborative">Collaboratively</li>
+        </ul>    
+        <div style="clear:both"></div>
+    </div>
+    
+    <div class="post-type selection">
+        <h2>What is it?</h2>
+        <ul class="radio">
+            <li class="selected" data-value="haiku">Haiku</li>
+            <li data-value="six-word-story">Six Word Story</li>
+            <li data-value="quote">Quote</li>
+            <li data-value="free-verse">Free Verse</li>
+        </ul>
+        <div class="speech-bubble haiku hidden">
+            A type of japanese poetry, having exactly three lines. See <a data-fix-anchors="false" href="http://www.toyomasu.com/haiku/" target="_blank">examples</a>.
+        </div>
+        <div class="speech-bubble six-word-story hidden">
+            A very short story, with exactly six words. See <a data-fix-anchors="false" href="http://www.sixwordstories.net/" target="_blank">examples</a>.
+        </div>
+        <div class="speech-bubble quote hidden">
+            A regular quote. It cannot be written collaboratively.
+        </div>
+        <div class="speech-bubble free-verse hidden">
+            You are free to write anything you want.
+        </div>
+        <div style="clear:both"></div>
+    </div>    
+
+    <div class="attachment-type selection">
+        <h2>Add a picture to the poem?</h2>
+        <ul class="radio">
+            <li class="selected" data-value="image">Yes, please.</li>
+            <li data-value="">No, thanks.</li>
+        </ul>
+        <div style="clear:both"></div>
+    </div>    
+
+    <div class="create-post-section">   
+        <h2 class="title hidden">&gt; </h2>
+        <div class="main-section post-box">
+            <div class="picture-section">
+                <div class="upload-box">
+                    <div class="with-url">
+                        <form>
+                            <label>Image url</label> <input type="text" value="" class="image-url" placeholder="eg: http://www.example.com/image.jpg" />
+                            or <a href="#" class="show-upload-box">Upload file</a>
+                        </form>
+                    </div>
+                    <div class="with-upload" style="display:none">
+                        <form class="upload-form" name="form" action="/api/files" method="POST" target="upload-frame" enctype="multipart/form-data" >
+                            <input type="file" class="file-input" name="file" /> or <a href="#" class="show-image-url">image url</a><br />
+                            <iframe id="upload-frame" name="upload-frame" src="" style="display:none;height:0;width:0"></iframe>
+                        </form>
+                    </div>
+                    <div class="message plain error hidden"></div>
+                </div>
+                <div class="background hidden">
+                    <div class="pic-container"></div>
+                    <div class="picture-options">
+                        <div class="bg"></div>
+                        <p>
+                            <a href="#" class="credits-link">Add image credits</a><a class="change-picture" href="#">Change picture</a>
+                            <span class="effects"><span class="text">faithful</span>
+                                <a href="#" data-filter="none" class="image-effect selected"><img src="/images/image-filter-icons/none.jpg" /></a>
+                                <a href="#" data-filter="vintage" class="image-effect"><img src="/images/image-filter-icons/vintage.jpg" /></a>
+                                <a href="#" data-filter="grayscale" class="image-effect"><img src="/images/image-filter-icons/grayscale.jpg" /></a>
+                                <a href="#" data-filter="sepia" class="image-effect"><img src="/images/image-filter-icons/sepia.jpg" /></a>
+                            </span>
+                        </p>
+                    </div>
+                    <p class="picture-credits hidden">
+                        Name: <input type="text" class="image-credits-name" placeholder="eg: John Doe" /> Website: <input type="text" class="image-credits-website" placeholder="eg: johndoephoto.com"/>
+                    </p>
+                </div>        
+            </div>
+            <!-- HAIKU -->
+            <div class="haiku-form post-type-form">
+                <form>
+                    <div class="solo">
+                        <p>
+                            Write three lines
+                            <textarea class="content" placeholder="Write three lines..."></textarea>
+                        </p>
+                    </div>
+                    <div class="collaborative hidden">
+                        <p>
+                            Write one or two lines.<br />
+                            <textarea class="content" placeholder="Write one or two lines..."></textarea>
+                        </p>
+                    </div>
+                </form>
+            </div>
+            <!-- SIX WORD STORY -->
+            <div class="six-word-story-form post-type-form hidden">
+                <form>
+                    <div class="solo hidden">
+                        <p>
+                            Write six words<br />
+                            <input type="text" class="content" placeholder="Write six words..." />
+                        </p>
+                    </div>
+                    <div class="collaborative hidden">
+                        <p>
+                            Write up to five words<br />
+                            <input type="text" class="content" placeholder="Write up to five words..." />
+                        </p>
+                    </div>
+                </form>
+            </div>
+            <!-- QUOTE -->
+            <div class="quote-form post-type-form hidden">
+                <form>
+                    <div class="solo hidden">
+                        <p>
+                            Quote<br />        
+                            <textarea class="content" placeholder="eg: Who wants to live forever? "></textarea>
+                        </p>
+                    </div>
+                </form>
+            </div>
+            <!-- FREE VERSE -->
+            <div class="free-verse-form post-type-form hidden">
+                <form>
+                    <p>
+                        Title<br />
+                        <input type="text" class="title" />
+                    <p>
+                    <div class="solo hidden">
+                        <p>                            
+                            <textarea class="content"></textarea>
+                        </p>
+                    </div>
+                    <div class="collaborative hidden">
+                        <p>
+                            <textarea class="content"></textarea>
+                        </p>
+                    </div>
+                </form>
+            </div>
+            <p class="content-error hidden">                
+            </p>
+            <div>
+                <form>
+                    <p class="tags">
+                        Add tags<br />                   
+                        <input class="tags" type="text" placeholder="eg: nature, japan, rains">
+                    </p>
+                </form>
+                <p class="create">
+                    <button class="create"><i class="icon-ok"></i>Create</button>
+                </p>
+            </div>         
+        </div>       
+    </div>
+</div>
+
+
+
+
+
+
+    
+<div class="comments template-postcomments">
+    {{#if comments}}
+        <h3>Comments ({{comments.length}}) <span class="add-comment-link"><a href="#" class="new-comment">Add a comment</a></span></h3>
+    {{else}}
+        <h3><span class="add-comment-link"><a href="#" class="new-comment">Add a comment</a></span></h3>
+    {{/if}}
+    <p class="comment-form" style="display:none">                
+        <textarea></textarea><br />
+        <button class="tiny save">Save Comment</button>
+    </p>
+    {{#if comments}}
+    <ul>
+        {{#each comments}}
+            <li>
+                <a class="profile-pic" href="/{{createdBy.domain}}/{{createdBy.username}}">
+                    <img src="{{createdBy.thumbnail}}" alt="{{createdBy.name}}" />
+                </a>
+                <h4><a href="/{{createdBy.domain}}/{{createdBy.username}}">{{createdBy.name}}</a></h4>
+                <div class="content">
+                {{content}}
+                </div>
+            </li>
+        {{/each}}
+    </ul>
+    {{/if}}
+</div>
+<div class="content-box post-list-view template-postlistview">
+    <div class="viewport">
+    </div>
+    <div class="items">
+    </div>
+</div>
+
+
+
+<div id="{{containerPrefix}}-postid-{{post._id}}" class="post-list-view-item {{post.type}} boxed {{displayClass}} cols-{{post.cols}} hidden template-postlistviewitem">
+    <div class="post-box">
+    
+        {{#if attachmentIsImage}}
+        <div class="background">
+            <img src="{{ post.attachmentThumbnail }}" alt="">
+        </div>
+        {{/if}}
+
+        <div class="parts">
+            {{{formattedParts}}}
+        </div>
+        
+        <ul class="authors"">
+            {{#each authors}}
+            <li id="{{../containerPrefix}}-postid-{{../post._id}}-author-{{id}}" style="background-image:url({{thumbnail}});" class="profile-pic" /></li>
+            {{/each}}
+        </ul>
+        
+        <div class="tags">
+            {{#each post.tags}}
+                <a href="{{../tagPrefix}}/tagged/{{.}}">#{{.}}</a>
+            {{/each}}
+        </div>
+    </div>
+</div>
+<div class="posts-view template-postsview">
+    <div class="std-menu">
+        <ul>
+            <li><span class="popular"><a href="/">Popular</a></span></li>
+            <li><span class="all"><a href="/posts">All Posts</a></span></li>
+            <li><span class="open"><a href="/posts/open">Open</a></span></li>
+        </ul>
+    </div>
+
+    <div class="filter">
+        <p class="active">
+            <i class="icon-filter"></i> <span class="prefix">Showing</span> <a href="#" class="type">All</a>
+        </p>
+        <p class="select" style="display:none">
+            <i class="icon-filter"></i> 
+            <a href="#" class="all">All</a> 
+            <a href="#" class="text">Text</a> 
+            <a href="#" class="haiku">Haiku</a> 
+            <a href="#" class="six-word-story">Six word story</a> 
+            <a href="#" class="quote">Quote</a> 
+            <a href="#" class="free-verse">Free verse</a>
+        </p>
+    </div>
+    
+    <div class="paginator top" style="display:none">
+        paginator
+    </div>
+
+    <div class="page-content">
+    </div>
+
+    <div class="paginator-border-bottom" style="clear:both; margin-right: 20px;"></div>
+
+    <div class="paginator bottom" style="display:none">
+        paginator
+    </div>
+</div>
+<div class="std-modal content-box post-view {{displayClass}} {{post.type}} template-postview">
+    {{#if isGallery}}
+        <p class="gallery-nav hidden">
+            <span class="left-cursor"><i class="icon-arrow-left"></i> prev </span>| <span class="right-cursor">next <i class="icon-arrow-right"></i></span>
+        </p>        
+        <div class="gallery" style="display:none">            
+        </div>
+    {{/if}}    
+    <div class="post-frame" style="float:left; width: 920px;">
+        <div class="main-section post-box" style="display:none">
+            {{#if attachmentIsImage}}
+            <div class="background">
+                <img src="{{ post.attachment }}" alt="">
+                {{{attachmentCredits}}}                
+            </div>
+            {{/if}}
+            
+            <div class="message" style="display:none"></div>
+
+            <div class="parts">
+                {{{formattedParts}}}
+            </div>
+            
+            {{{partEditor}}}
+
+            <p class="post-buttons">
+                <i class="like-button"></i>
+                <i class="settings-button icon-cog" style="display:none"></i>
+            </p>
+            
+            <ul class="authors"">
+                {{#each authors}}
+                <li data-domain="{{domain}}" data-username="{{username}}" style="background-image:url({{thumbnail}});" alt="{{name}}" class="profile-pic" /></li>
+                {{/each}}
+            </ul>
+            <!-- 
+            <div class="fb-like-container">
+                <fb:like send="false" layout="button_count" width="90" show_faces="false"></fb:like>
+            </div>
+            -->        
+        </div>         
+                
+        {{#if notes}}
+            <div class="notes" style="display:none">
+                {{{notes}}}
+            </div>
+        {{/if}}
+        
+        <div class="post-details" style="display:none">            
+            {{#if post.likes}}
+                <p class="likes">
+                    <i class="icon-heart"></i>
+                    {{#each post.likes}}
+                        <a href="/{{domain}}/{{username}}" alt="{{name}}">{{name}}</a> 
+                    {{/each}}
+                </p>
+            {{/if}}
+            <p>
+                Posted {{postedAt}}. 
+                {{#if post.tags}}
+                    Tagged 
+                    {{#each post.tags}}
+                        <a href="{{../tagPrefix}}/tagged/{{.}}">#{{.}}</a>
+                    {{/each}}
+                {{/if}}
+            </p>
+        </div>
+        
+        {{#if isComplete}}
+        <div class="social-share hidden">
+            <span class="social-action"></span> 
+            <div class="facebook social-app">
+                <img src="/images/facebook.png" /><a class="facebook-action" href="#">Facebook</a>
+            </div>
+            <div class="twitter social-app">
+                <img src="/images/twitter.png" /><a href="#">Twitter</a>
+            </div>
+            <div class="pinterest social-app" style="display:none">
+                <img src="/images/pinterest.png" /><a href="#">Pinterest</a>
+            </div>
+            <div style="clear: both"></div>
+        </div>
+        {{else}}
+        <div class="social-share hidden">
+            <div class="facebook social-app">
+                <img src="/images/facebook.png" /><a class="facebook-action" href="#">Invite contributors</a>
+            </div>
+            <div class="twitter social-app">
+                <img src="/images/twitter.png" /><a href="#">Tweet this</a>
+            </div>
+            <div style="clear: both"></div>
+        </div>        
+        {{/if}}
+        
+        
+        <div class="comments-container hidden">
+            {{comments}}        
+        </div>
+    </div>
+</div>
+<div class="content-box tag-list-view template-taglistview">
+    <div class="viewport stack-container">
+    </div>
+    <div class="items">
+    </div>
+</div>
+<div id="{{containerPrefix}}-posts-by-tag-{{tag}}" class="cols-1 hidden tag-list-view-item template-taglistviewitem">
+    <div class="{{stacktype}}">
+        {{{content}}}
+    </div>
+    <p class="tag-details">
+        #{{tag}} ({{count}})
+    </p>
+</div>
+
+<div class="template-userinfo">
+    <div class="left-pane">
+        <div class="profile-pic">
+            <img src="{{picture}}" alt="{{name}}" />
+        </div>  
+        {{#if isAutheticated}}
+            {{#unless self}}
+            <div class="actions">
+                <span class="following hidden">
+                    <button class="small">Unfollow</button>
+                </span>
+                <span class="not-following hidden">
+                    <button class="small">Follow</button>
+                </span>
+            </div>
+            {{/unless}}
+        {{/if}}         
+    </div>
+    <div class="details">
+        <h2>{{name}}</h2>
+        <span class="following-mark hidden"><i class="icon-ok"></i>Following</span>
+
+        {{#if self}}
+            <a class="edit-link" href="/{{domain}}/{{username}}/edit">Edit Account</a>
+        {{/if}}
+        
+        <div class="about">
+            {{{about}}}
+        </div>
+        
+        {{#if showLinks}}
+        <ul class="links">
+            {{#if facebookUsername}}
+            <li class="facebook"><a href="http://www.facebook.com/{{facebookUsername}}">{{name}}</a></li>
+            {{/if}}
+            {{#if twitterUsername}}
+            <li class="twitter"><a href="http://www.twitter.com/{{twitterUsername}}">{{twitterUsername}}</a></li>
+            {{/if}}
+        </ul>
+        {{/if}}
+
+        <div>
+            {{#if following}}
+            <div class="follow">
+                <h3>Following {{followingCount}}</h3> <a href="#" class="all following">show</a>
+                <p class="people">
+                    {{#each following}}
+                        <a href="/{{domain}}/{{username}}"><img src="{{thumbnail}}" alt="{{name}}" /></a>
+                    {{/each}}
+                </p>
+            </div>
+            {{/if}}
+            
+            {{#if followers}}
+            <div class="follow">
+                <h3>{{followerCount}} Followers</h3> <a href="#" class="all followers">show</a>
+                <p class="people">
+                    {{#each followers}}
+                        <a href="/{{domain}}/{{username}}"><img src="{{thumbnail}}" alt="{{name}}" /></a>
+                    {{/each}}                                
+                </p>
+            </div>
+            {{/if}}       
+        </div>              
+    </div>    
+    <div style="clear:both"></div>
+</div>
+
+<div class="content-box fixed-width-small user-list-view template-userlistview">
+    <div class="main-section">
+        <h3>{{heading}}</h3>
+        <ul>
+            {{#each users}}                
+                <li>
+                    <a href="/{{domain}}/{{username}}">
+                        <img src="{{thumbnail}}" alt="{{name}}" />
+                    </a>
+                    <a class="name" href="/{{domain}}/{{username}}">{{name}}</a>
+                </li>
+            {{/each}}
+        </ul>
+        <div style="clear:both"></div>
+    </div>
+</div>
+<div class="content-box user-view template-userview">
+    <div class="user-info">
+    </div>
+    <div class="std-menu">
+        <ul>
+            <li><a href="/{{domain}}/{{username}}/completed" data-fix-anchors="false" class="selected completed">Completed</a></li>
+            <li><a href="/{{domain}}/{{username}}/open" data-fix-anchors="false" class="open">Open</a></li>
+            <li><a href="/{{domain}}/{{username}}/likes" data-fix-anchors="false" class="likes">Favorites</a></li>
+            <li><a href="/{{domain}}/{{username}}/tags" data-fix-anchors="false" class="tags">Tags</a></li>
+            <li class="hidden messages"><a href="/{{domain}}/{{username}}/messages" data-fix-anchors="false" class="messages">Messages</a></li>
+        </ul>
+    </div>
+    <div class="page-content">
+    </div>
+</div>

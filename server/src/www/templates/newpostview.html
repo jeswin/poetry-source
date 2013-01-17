@@ -1,0 +1,169 @@
+<div class="new-post-view content-box template-newpostview">    
+    <h1>New Poem</h1>
+
+    <div class="authoring-mode selection">
+        <h2>How do you want to write?</h2>
+        <ul class="radio">
+            <li class="selected" data-value="solo">By myself</li>
+            <li data-value="collaborative">Collaboratively</li>
+        </ul>    
+        <div style="clear:both"></div>
+    </div>
+    
+    <div class="post-type selection">
+        <h2>What is it?</h2>
+        <ul class="radio">
+            <li class="selected" data-value="haiku">Haiku</li>
+            <li data-value="six-word-story">Six Word Story</li>
+            <li data-value="quote">Quote</li>
+            <li data-value="free-verse">Free Verse</li>
+        </ul>
+        <div class="speech-bubble haiku hidden">
+            A type of japanese poetry, having exactly three lines. See <a data-fix-anchors="false" href="http://www.toyomasu.com/haiku/" target="_blank">examples</a>.
+        </div>
+        <div class="speech-bubble six-word-story hidden">
+            A very short story, with exactly six words. See <a data-fix-anchors="false" href="http://www.sixwordstories.net/" target="_blank">examples</a>.
+        </div>
+        <div class="speech-bubble quote hidden">
+            A regular quote. It cannot be written collaboratively.
+        </div>
+        <div class="speech-bubble free-verse hidden">
+            You are free to write anything you want.
+        </div>
+        <div style="clear:both"></div>
+    </div>    
+
+    <div class="attachment-type selection">
+        <h2>Add a picture to the poem?</h2>
+        <ul class="radio">
+            <li class="selected" data-value="image">Yes, please.</li>
+            <li data-value="">No, thanks.</li>
+        </ul>
+        <div style="clear:both"></div>
+    </div>    
+
+    <div class="create-post-section">   
+        <h2 class="title hidden">&gt; </h2>
+        <div class="main-section post-box">
+            <div class="picture-section">
+                <div class="upload-box">
+                    <div class="with-url">
+                        <form>
+                            <label>Image url</label> <input type="text" value="" class="image-url" placeholder="eg: http://www.example.com/image.jpg" />
+                            or <a href="#" class="show-upload-box">Upload file</a>
+                        </form>
+                    </div>
+                    <div class="with-upload" style="display:none">
+                        <form class="upload-form" name="form" action="/api/files" method="POST" target="upload-frame" enctype="multipart/form-data" >
+                            <input type="file" class="file-input" name="file" /> or <a href="#" class="show-image-url">image url</a><br />
+                            <iframe id="upload-frame" name="upload-frame" src="" style="display:none;height:0;width:0"></iframe>
+                        </form>
+                    </div>
+                    <div class="message plain error hidden"></div>
+                </div>
+                <div class="background hidden">
+                    <div class="pic-container"></div>
+                    <div class="picture-options">
+                        <div class="bg"></div>
+                        <p>
+                            <a href="#" class="credits-link">Add image credits</a><a class="change-picture" href="#">Change picture</a>
+                            <span class="effects"><span class="text">faithful</span>
+                                <a href="#" data-filter="none" class="image-effect selected"><img src="/images/image-filter-icons/none.jpg" /></a>
+                                <a href="#" data-filter="vintage" class="image-effect"><img src="/images/image-filter-icons/vintage.jpg" /></a>
+                                <a href="#" data-filter="grayscale" class="image-effect"><img src="/images/image-filter-icons/grayscale.jpg" /></a>
+                                <a href="#" data-filter="sepia" class="image-effect"><img src="/images/image-filter-icons/sepia.jpg" /></a>
+                            </span>
+                        </p>
+                    </div>
+                    <p class="picture-credits hidden">
+                        Name: <input type="text" class="image-credits-name" placeholder="eg: John Doe" /> Website: <input type="text" class="image-credits-website" placeholder="eg: johndoephoto.com"/>
+                    </p>
+                </div>        
+            </div>
+            <!-- HAIKU -->
+            <div class="haiku-form post-type-form">
+                <form>
+                    <div class="solo">
+                        <p>
+                            Write three lines
+                            <textarea class="content" placeholder="Write three lines..."></textarea>
+                        </p>
+                    </div>
+                    <div class="collaborative hidden">
+                        <p>
+                            Write one or two lines.<br />
+                            <textarea class="content" placeholder="Write one or two lines..."></textarea>
+                        </p>
+                    </div>
+                </form>
+            </div>
+            <!-- SIX WORD STORY -->
+            <div class="six-word-story-form post-type-form hidden">
+                <form>
+                    <div class="solo hidden">
+                        <p>
+                            Write six words<br />
+                            <input type="text" class="content" placeholder="Write six words..." />
+                        </p>
+                    </div>
+                    <div class="collaborative hidden">
+                        <p>
+                            Write up to five words<br />
+                            <input type="text" class="content" placeholder="Write up to five words..." />
+                        </p>
+                    </div>
+                </form>
+            </div>
+            <!-- QUOTE -->
+            <div class="quote-form post-type-form hidden">
+                <form>
+                    <div class="solo hidden">
+                        <p>
+                            Quote<br />        
+                            <textarea class="content" placeholder="eg: Who wants to live forever? "></textarea>
+                        </p>
+                    </div>
+                </form>
+            </div>
+            <!-- FREE VERSE -->
+            <div class="free-verse-form post-type-form hidden">
+                <form>
+                    <p>
+                        Title<br />
+                        <input type="text" class="title" />
+                    <p>
+                    <div class="solo hidden">
+                        <p>                            
+                            <textarea class="content"></textarea>
+                        </p>
+                    </div>
+                    <div class="collaborative hidden">
+                        <p>
+                            <textarea class="content"></textarea>
+                        </p>
+                    </div>
+                </form>
+            </div>
+            <p class="content-error hidden">                
+            </p>
+            <div>
+                <form>
+                    <p class="tags">
+                        Add tags<br />                   
+                        <input class="tags" type="text" placeholder="eg: nature, japan, rains">
+                    </p>
+                </form>
+                <p class="create">
+                    <button class="create"><i class="icon-ok"></i>Create</button>
+                </p>
+            </div>         
+        </div>       
+    </div>
+</div>
+
+
+
+
+
+
+    

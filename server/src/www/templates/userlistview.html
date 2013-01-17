@@ -1,0 +1,16 @@
+<div class="content-box fixed-width-small user-list-view template-userlistview">
+    <div class="main-section">
+        <h3>{{heading}}</h3>
+        <ul>
+            {{#each users}}                
+                <li>
+                    <a href="/{{domain}}/{{username}}">
+                        <img src="{{thumbnail}}" alt="{{name}}" />
+                    </a>
+                    <a class="name" href="/{{domain}}/{{username}}">{{name}}</a>
+                </li>
+            {{/each}}
+        </ul>
+        <div style="clear:both"></div>
+    </div>
+</div>

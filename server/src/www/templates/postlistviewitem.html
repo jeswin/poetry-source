@@ -1,0 +1,26 @@
+<div id="{{containerPrefix}}-postid-{{post._id}}" class="post-list-view-item {{post.type}} boxed {{displayClass}} cols-{{post.cols}} hidden template-postlistviewitem">
+    <div class="post-box">
+    
+        {{#if attachmentIsImage}}
+        <div class="background">
+            <img src="{{ post.attachmentThumbnail }}" alt="">
+        </div>
+        {{/if}}
+
+        <div class="parts">
+            {{{formattedParts}}}
+        </div>
+        
+        <ul class="authors"">
+            {{#each authors}}
+            <li id="{{../containerPrefix}}-postid-{{../post._id}}-author-{{id}}" style="background-image:url({{thumbnail}});" class="profile-pic" /></li>
+            {{/each}}
+        </ul>
+        
+        <div class="tags">
+            {{#each post.tags}}
+                <a href="{{../tagPrefix}}/tagged/{{.}}">#{{.}}</a>
+            {{/each}}
+        </div>
+    </div>
+</div>
