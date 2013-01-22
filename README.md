@@ -1,4 +1,5 @@
-License: GPL3
+Poe3 is licensed under the GPL3 license.
+You can find it here: http://gplv3.fsf.org/
 
 Poe3 install instructions from new Ubuntu 12.04
 ==========================================
@@ -105,3 +106,7 @@ ln -s /usr/local/lib/node_modules /usr/local/lib/node
 Or: in .bashrc
 export NODE_PATH="/usr/local/lib/node_modules"
 
+
+Running
+========================
+./run.sh
