@@ -80,4 +80,4 @@ host = process.argv[2]
 port = process.argv[3]
 
             
-app.listen(port)
+app.listen(port, host ? '')

@@ -164,4 +164,4 @@ global.appSettings.getNewPostUID = (cb) ->
         cb err, counter
         
 
-app.listen(port)
+app.listen(port, host ? '')

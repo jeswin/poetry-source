@@ -130,6 +130,6 @@
 
   port = process.argv[3];
 
-  app.listen(port);
+  app.listen(port, host != null ? host : '');
 
 }).call(this);

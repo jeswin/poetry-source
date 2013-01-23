@@ -322,6 +322,6 @@
     });
   };
 
-  app.listen(port);
+  app.listen(port, host != null ? host : '');
 
 }).call(this);

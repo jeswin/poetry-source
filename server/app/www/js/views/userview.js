@@ -183,7 +183,7 @@
             eMsg.html(msg.toHtml());
           }
           if (thread.length > 3) {
-            eThread.append('<p class="show-all"><i class="icon-plus"></i> <span class="link">Show ' + thread.length + ' more</span></p>');
+            eThread.append('<p class="show-all"><i class="icon-plus"></i> <span class="link">Show ' + (thread.length - 3) + ' more</span></p>');
             (function(eThread) {
               return eThread.find('.show-all').click(function() {
                 $(this).hide();
