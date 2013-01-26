@@ -106,6 +106,9 @@ ln -s /usr/local/lib/node_modules /usr/local/lib/node
 Or: in .bashrc
 export NODE_PATH="/usr/local/lib/node_modules"
 
+Configuration and Settings
+==========================
+All settings are under the conf directory. Edit index.coffee.
 
 Running
 ========================

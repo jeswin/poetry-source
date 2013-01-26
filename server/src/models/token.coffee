@@ -15,7 +15,6 @@ class Token extends BaseModel
         collection: 'tokens',
         logging: {
             isLogged: false,
-            onInsert: 'NEW_USERINFO'
         }
     }
     

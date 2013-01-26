@@ -30,8 +30,7 @@
       type: Token,
       collection: 'tokens',
       logging: {
-        isLogged: false,
-        onInsert: 'NEW_USERINFO'
+        isLogged: false
       }
     };
 
