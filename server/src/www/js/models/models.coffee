@@ -33,7 +33,7 @@ class Post extends BaseModel
     formatParts: (type, parts, viewType = 'full') =>
         try
             #if the post is incomplete and this is the owner, we put additional tags inline for editing.
-            if @isOpen() and (viewType is 'full' or viewType is 'partial') and @get('createdBy').id is app.getUser().id
+            if @isOpen() and (viewType is 'full') and @get('createdBy').id is app.getUser().id
                 lastPart = parts[-1..][0]
                 switch type
                     when 'haiku'
@@ -94,7 +94,7 @@ class Post extends BaseModel
                         content = ("<p>#{part.content}</p>" for part in parts).join ''
                         content = content.replace /\n\n/g, "</p><p>" #that was an easy hack. :)
                         content = content.replace /\n/g, "<br />"
-                        if viewType is 'full' and @get('title')
+                        if (viewType is 'full' or viewType is 'condensed') and @get('title')
                             '<div class="post-text free-verse"><h3 class="title">' + @get('title') + '</h3>' + content + "</div>"            
                         else
                             '<div class="post-text free-verse">' + content + "</div>"            

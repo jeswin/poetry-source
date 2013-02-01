@@ -120,7 +120,7 @@
         viewType = 'full';
       }
       try {
-        if (this.isOpen() && (viewType === 'full' || viewType === 'partial') && this.get('createdBy').id === app.getUser().id) {
+        if (this.isOpen() && (viewType === 'full') && this.get('createdBy').id === app.getUser().id) {
           lastPart = parts.slice(-1)[0];
           switch (type) {
             case 'haiku':
@@ -219,7 +219,7 @@
               })()).join('');
               content = content.replace(/\n\n/g, "</p><p>");
               content = content.replace(/\n/g, "<br />");
-              if (viewType === 'full' && this.get('title')) {
+              if ((viewType === 'full' || viewType === 'condensed') && this.get('title')) {
                 return '<div class="post-text free-verse"><h3 class="title">' + this.get('title') + '</h3>' + content + "</div>";
               } else {
                 return '<div class="post-text free-verse">' + content + "</div>";
