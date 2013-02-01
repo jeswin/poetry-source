@@ -620,6 +620,8 @@ class PostView extends Poe3.ModalView
             height = $('.post-view .post-box').height()
             #width = $('.post-view .post-box').width()
             width = $('.post-view .post-box .background img')[0].naturalWidth
+            if $(window).width() < (width + 32)
+                width = $(window).width() - 32
             windowHeight = $(window).height() - 160
             scaledWidth = parseInt width * (windowHeight/height)        
 

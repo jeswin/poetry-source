@@ -94,7 +94,7 @@ class Post extends BaseModel
                         content = ("<p>#{part.content}</p>" for part in parts).join ''
                         content = content.replace /\n\n/g, "</p><p>" #that was an easy hack. :)
                         content = content.replace /\n/g, "<br />"
-                        if @get('title')
+                        if viewType is 'full' and @get('title')
                             '<div class="post-text free-verse"><h3 class="title">' + @get('title') + '</h3>' + content + "</div>"            
                         else
                             '<div class="post-text free-verse">' + content + "</div>"            

@@ -219,7 +219,7 @@
               })()).join('');
               content = content.replace(/\n\n/g, "</p><p>");
               content = content.replace(/\n/g, "<br />");
-              if (this.get('title')) {
+              if (viewType === 'full' && this.get('title')) {
                 return '<div class="post-text free-verse"><h3 class="title">' + this.get('title') + '</h3>' + content + "</div>";
               } else {
                 return '<div class="post-text free-verse">' + content + "</div>";
