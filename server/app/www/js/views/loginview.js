@@ -31,7 +31,8 @@
                 <p>\
                     You need to login to do that.\
                 </p>\
-                <img class="fb-login-button" src="/images/fb-connect.png" alt="FB connect" />\
+                <img class="fb-login-button" src="/images/facebook.png" alt="FB connect" /> \
+                <img class="twitter-login-button" src="/images/twitter.png" alt="FB connect" /> \
             </div>');
       this.attachEvents();
       return this.displayModal();
@@ -39,15 +40,23 @@
 
     LoginView.prototype.attachEvents = function() {
       var _this = this;
-      return $('.login-view-container .fb-login-button').click(function() {
-        return FB.login((function(response) {
+      $('.login-view-container .fb-login-button').click(function() {
+        FB.login((function(response) {
           _this.loginSuccess = response.status === 'connected';
+          if (_this.loginSuccess) {
+            app.login('fb', response.authResponse.accessToken);
+          }
           return $('.login-view-container').trigger('close', {
             mustClose: true
           });
         }), {
           scope: 'email,publish_actions'
         });
+        return false;
+      });
+      return $('.login-view-container .twitter-login-button').click(function() {
+        window.location.href = "/auth/twitter";
+        return false;
       });
     };
 

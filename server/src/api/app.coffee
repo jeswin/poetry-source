@@ -35,6 +35,7 @@ app.use (req,res,next) =>
                 val = val.replace '>', ')'
                 inputs[key] = validator.sanitize(val).xss()
     
+        #TODO: Remove. This is unnecessary. Remove.
         if req.files
             for file in req.files
                 val = req.files[file]
