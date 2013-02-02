@@ -425,18 +425,23 @@ class PostsController extends controller.Controller
         @ensureSession arguments, =>
             if req.files
                 timestamp = Date.now()
-                extension = req.files.file.name.split('.').pop()
-                filename = "#{utils.uniqueId(8)}_#{timestamp}.#{extension}"
-                fs.rename req.files.file.path, "../../www-user/temp/#{filename}", (err) =>
-                    if not err
-                        @resizeImage "../../www-user/temp/#{filename}", (err, imageInfo) =>
-                            if not err
-                                res.set 'Content-Type', 'text/html'
-                                res.send { attachment: "#{imageInfo.imagesDirUrl}/#{imageInfo.filename}", attachmentThumbnail: "#{imageInfo.thumbnailsDirUrl}/#{imageInfo.filename}" }
-                            else
-                                next err
-                    else
-                        next err
+                extension = req.files.file.name.split('.').pop().toLowerCase()
+
+                #Validate the extension                
+                if ['jpg', 'jpeg', 'png', 'gif', 'bmp'].indexOf(extension) is -1
+                    next new AppError "Invalid file extension", "INVALID_FILE_EXTENSION"
+                else
+                    filename = "#{utils.uniqueId(8)}_#{timestamp}.#{extension}"
+                    fs.rename req.files.file.path, "../../www-user/temp/#{filename}", (err) =>
+                        if not err
+                            @resizeImage "../../www-user/temp/#{filename}", (err, imageInfo) =>
+                                if not err
+                                    res.set 'Content-Type', 'text/html'
+                                    res.send { attachment: "#{imageInfo.imagesDirUrl}/#{imageInfo.filename}", attachmentThumbnail: "#{imageInfo.thumbnailsDirUrl}/#{imageInfo.filename}" }
+                                else
+                                    next err
+                        else
+                            next err
 
 
 
@@ -525,15 +530,20 @@ class PostsController extends controller.Controller
             #If the url does not start with a local relative path...
             if not /^\/user\//.test(fileUrl)
                 extension = parseResult.pathname.split('/').pop().split('.').pop()
-                filename = "#{utils.uniqueId(8)}_#{Date.now()}.#{extension}"
-                _curl = "curl --max-filesize 5000000 " + fileUrl + " > ../../www-user/temp/#{filename}"
-                child = exec _curl, (err, stdout, stderr) =>
-                    if not err
-                        console.log "Downloaded #{fileUrl} to #{filename}."
-                        cb null, "../../www-user/temp/#{filename}"
-                    else
-                        console.log "Could not download #{fileUrl}."        
-                        cb err
+                
+                #Validate the extension                
+                if ['jpg', 'jpeg', 'png', 'gif', 'bmp'].indexOf(extension.toLowerCase()) is -1
+                    cb new AppError "Invalid file extension", "INVALID_FILE_EXTENSION"
+                else
+                    filename = "#{utils.uniqueId(8)}_#{Date.now()}.#{extension.toLowerCase()}"
+                    _curl = "curl --max-filesize 5000000 " + fileUrl + " > ../../www-user/temp/#{filename}"
+                    child = exec _curl, (err, stdout, stderr) =>
+                        if not err
+                            console.log "Downloaded #{fileUrl} to #{filename}."
+                            cb null, "../../www-user/temp/#{filename}"
+                        else
+                            console.log "Could not download #{fileUrl}."        
+                            cb err
             #So we have alocal file.
             else
                 console.log "Download not required for #{fileUrl}."

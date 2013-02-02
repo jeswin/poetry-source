@@ -728,25 +728,29 @@
         var extension, filename, timestamp;
         if (req.files) {
           timestamp = Date.now();
-          extension = req.files.file.name.split('.').pop();
-          filename = "" + (utils.uniqueId(8)) + "_" + timestamp + "." + extension;
-          return fs.rename(req.files.file.path, "../../www-user/temp/" + filename, function(err) {
-            if (!err) {
-              return _this.resizeImage("../../www-user/temp/" + filename, function(err, imageInfo) {
-                if (!err) {
-                  res.set('Content-Type', 'text/html');
-                  return res.send({
-                    attachment: "" + imageInfo.imagesDirUrl + "/" + imageInfo.filename,
-                    attachmentThumbnail: "" + imageInfo.thumbnailsDirUrl + "/" + imageInfo.filename
-                  });
-                } else {
-                  return next(err);
-                }
-              });
-            } else {
-              return next(err);
-            }
-          });
+          extension = req.files.file.name.split('.').pop().toLowerCase();
+          if (['jpg', 'jpeg', 'png', 'gif', 'bmp'].indexOf(extension) === -1) {
+            return next(new AppError("Invalid file extension", "INVALID_FILE_EXTENSION"));
+          } else {
+            filename = "" + (utils.uniqueId(8)) + "_" + timestamp + "." + extension;
+            return fs.rename(req.files.file.path, "../../www-user/temp/" + filename, function(err) {
+              if (!err) {
+                return _this.resizeImage("../../www-user/temp/" + filename, function(err, imageInfo) {
+                  if (!err) {
+                    res.set('Content-Type', 'text/html');
+                    return res.send({
+                      attachment: "" + imageInfo.imagesDirUrl + "/" + imageInfo.filename,
+                      attachmentThumbnail: "" + imageInfo.thumbnailsDirUrl + "/" + imageInfo.filename
+                    });
+                  } else {
+                    return next(err);
+                  }
+                });
+              } else {
+                return next(err);
+              }
+            });
+          }
         }
       });
     };
@@ -848,17 +852,21 @@
         hostArr = (_ref = parseResult.hostname) != null ? _ref.split('.') : void 0;
         if (!/^\/user\//.test(fileUrl)) {
           extension = parseResult.pathname.split('/').pop().split('.').pop();
-          filename = "" + (utils.uniqueId(8)) + "_" + (Date.now()) + "." + extension;
-          _curl = "curl --max-filesize 5000000 " + fileUrl + (" > ../../www-user/temp/" + filename);
-          return child = exec(_curl, function(err, stdout, stderr) {
-            if (!err) {
-              console.log("Downloaded " + fileUrl + " to " + filename + ".");
-              return cb(null, "../../www-user/temp/" + filename);
-            } else {
-              console.log("Could not download " + fileUrl + ".");
-              return cb(err);
-            }
-          });
+          if (['jpg', 'jpeg', 'png', 'gif', 'bmp'].indexOf(extension.toLowerCase()) === -1) {
+            return cb(new AppError("Invalid file extension", "INVALID_FILE_EXTENSION"));
+          } else {
+            filename = "" + (utils.uniqueId(8)) + "_" + (Date.now()) + "." + (extension.toLowerCase());
+            _curl = "curl --max-filesize 5000000 " + fileUrl + (" > ../../www-user/temp/" + filename);
+            return child = exec(_curl, function(err, stdout, stderr) {
+              if (!err) {
+                console.log("Downloaded " + fileUrl + " to " + filename + ".");
+                return cb(null, "../../www-user/temp/" + filename);
+              } else {
+                console.log("Could not download " + fileUrl + ".");
+                return cb(err);
+              }
+            });
+          }
         } else {
           console.log("Download not required for " + fileUrl + ".");
           if (/^\/user\/temp\//.test(fileUrl)) {
