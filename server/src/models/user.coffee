@@ -128,20 +128,6 @@ class User extends BaseModel
             cb null, user
 
 
-    
-    @validateSummary: (user) =>
-        errors = []
-        if not user
-            errors.push "Invalid user."
-        
-        required = ['id', 'domain', 'username', 'name', 'picture', 'thumbnail', 'domainidType']
-        for field in required
-            if not user[field]
-                errors.push "Invalid #{field}"
-                
-        errors
-        
-        
 
     constructor: (params) ->
         @followers = []
@@ -229,6 +215,20 @@ class User extends BaseModel
         result.id = @_id.toString()
         result
         
+
+    
+    @validateSummary: (user) =>
+        errors = []
+        if not user
+            errors.push "Invalid user."
+        
+        required = ['id', 'domain', 'username', 'name', 'picture', 'thumbnail', 'domainidType']
+        for field in required
+            if not user[field]
+                errors.push "Invalid #{field}"
+                
+        errors
+
 
 
     validate: =>

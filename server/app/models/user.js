@@ -167,22 +167,6 @@
       });
     };
 
-    User.validateSummary = function(user) {
-      var errors, field, required, _i, _len;
-      errors = [];
-      if (!user) {
-        errors.push("Invalid user.");
-      }
-      required = ['id', 'domain', 'username', 'name', 'picture', 'thumbnail', 'domainidType'];
-      for (_i = 0, _len = required.length; _i < _len; _i++) {
-        field = required[_i];
-        if (!user[field]) {
-          errors.push("Invalid " + field);
-        }
-      }
-      return errors;
-    };
-
     function User(params) {
       this.validate = __bind(this.validate, this);
 
@@ -401,6 +385,22 @@
       result = User.__super__.summarize.call(this, fields);
       result.id = this._id.toString();
       return result;
+    };
+
+    User.validateSummary = function(user) {
+      var errors, field, required, _i, _len;
+      errors = [];
+      if (!user) {
+        errors.push("Invalid user.");
+      }
+      required = ['id', 'domain', 'username', 'name', 'picture', 'thumbnail', 'domainidType'];
+      for (_i = 0, _len = required.length; _i < _len; _i++) {
+        field = required[_i];
+        if (!user[field]) {
+          errors.push("Invalid " + field);
+        }
+      }
+      return errors;
     };
 
     User.prototype.validate = function() {

@@ -401,7 +401,7 @@ class PostsController extends controller.Controller
                         if not /\.\./.test(uploadBaseDir) #Minor security check. Make sure there aren't any '..'s since we are about the access the local file system.                            
                             res.send { success: true }                                                                
                             localFile = "../../www-user/images/#{uploadBaseDir}/#{filename}"            
-                            _curl = "curl -F 'access_token=#{session.accessToken}' -F 'source=@#{localFile}' -F \"message=#{message}\" https://graph.facebook.com/me/photos"
+                            _curl = "curl --proto =http,https --proto-redir =http,https -F 'access_token=#{session.accessToken}' -F 'source=@#{localFile}' -F \"message=#{message}\" https://graph.facebook.com/me/photos"
                             console.log _curl
                             child = exec _curl, (err, stdout, stderr) =>
                                 #TODO: Check if there is an error.
@@ -536,7 +536,7 @@ class PostsController extends controller.Controller
                     cb new AppError "Invalid file extension", "INVALID_FILE_EXTENSION"
                 else
                     filename = "#{utils.uniqueId(8)}_#{Date.now()}.#{extension.toLowerCase()}"
-                    _curl = "curl --max-filesize 5000000 " + fileUrl + " > ../../www-user/temp/#{filename}"
+                    _curl = "curl --proto =http,https --proto-redir =http,https --max-filesize 5000000 " + fileUrl + " > ../../www-user/temp/#{filename}"
                     child = exec _curl, (err, stdout, stderr) =>
                         if not err
                             console.log "Downloaded #{fileUrl} to #{filename}."

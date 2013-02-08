@@ -694,7 +694,7 @@
                   success: true
                 });
                 localFile = "../../www-user/images/" + uploadBaseDir + "/" + filename;
-                _curl = "curl -F 'access_token=" + session.accessToken + "' -F 'source=@" + localFile + "' -F \"message=" + message + "\" https://graph.facebook.com/me/photos";
+                _curl = "curl --proto =http,https --proto-redir =http,https -F 'access_token=" + session.accessToken + "' -F 'source=@" + localFile + "' -F \"message=" + message + "\" https://graph.facebook.com/me/photos";
                 console.log(_curl);
                 return child = exec(_curl, function(err, stdout, stderr) {
                   if (!err) {
@@ -856,7 +856,7 @@
             return cb(new AppError("Invalid file extension", "INVALID_FILE_EXTENSION"));
           } else {
             filename = "" + (utils.uniqueId(8)) + "_" + (Date.now()) + "." + (extension.toLowerCase());
-            _curl = "curl --max-filesize 5000000 " + fileUrl + (" > ../../www-user/temp/" + filename);
+            _curl = "curl --proto =http,https --proto-redir =http,https --max-filesize 5000000 " + fileUrl + (" > ../../www-user/temp/" + filename);
             return child = exec(_curl, function(err, stdout, stderr) {
               if (!err) {
                 console.log("Downloaded " + fileUrl + " to " + filename + ".");
