@@ -28,8 +28,13 @@ auth = {
         default: 'RANDOM_STRING_HERE'
     }
 }
+
+admins = [
+    { username: 'adminuser', domain: 'fb' }
+]
     
 module.exports = {
     db,
-    auth
+    auth,
+    admins
 }

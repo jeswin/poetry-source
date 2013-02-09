@@ -362,9 +362,9 @@ ul.radio {}
 
 
     /* PART CONTRIBUTION LISTING */
-    .post-view .part-listing li { clear: both; margin: 0; padding: 4px; font-family: 'Droid Serif', serif; }
+    .post-view .part-listing li { clear: both; margin: 0 0 4px 0; padding: 4px; font-family: 'Droid Serif', serif; }
         .post-view .part-listing li img { width: 24px; height: 24px; border-radius: 100%; float: left; }
-        .post-view .part-listing .post-text { float: left; margin: 4px 0 0 10px; font-size: 14px; }
+        .post-view .part-listing .post-text { float: left; margin: 0 0 0 10px; font-size: 14px; }
         
 
     /* CONTENT ERROR */

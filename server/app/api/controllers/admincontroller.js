@@ -41,8 +41,21 @@
         _this = this;
       req = args[0], res = args[1], next = args[2];
       return this.getUserWithPasskey(req.query.passkey, function(err, user) {
-        var _ref, _ref1;
-        if ((user != null ? user.username : void 0) === 'jeswin' && user.domain === 'fb') {
+        var admin, u, _ref, _ref1;
+        admin = (function() {
+          var _i, _len, _ref, _results;
+          _ref = conf.admins;
+          _results = [];
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            u = _ref[_i];
+            if (u.username === (user != null ? user.username : void 0) && u.domain === (user != null ? user.domain : void 0)) {
+              _results.push(u);
+            }
+          }
+          return _results;
+        })();
+        console.log(JSON.stringify(admin));
+        if (admin.length) {
           req.user = user;
           return fn();
         } else {
