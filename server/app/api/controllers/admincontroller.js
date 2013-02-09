@@ -54,7 +54,6 @@
           }
           return _results;
         })();
-        console.log(JSON.stringify(admin));
         if (admin.length) {
           req.user = user;
           return fn();

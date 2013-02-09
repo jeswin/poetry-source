@@ -12,7 +12,6 @@ class AdminController extends controller.Controller
         [req, res, next] = args 
         @getUserWithPasskey req.query.passkey, (err, user) =>
             admin = (u for u in conf.admins when u.username is user?.username and u.domain is user?.domain)
-            console.log JSON.stringify admin
             if admin.length
                 req.user = user
                 fn()
