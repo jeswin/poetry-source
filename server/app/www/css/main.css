@@ -263,11 +263,11 @@ ul.radio {}
 .modal-popup .fixed-width-small { width: 480px; }
 
 .modal-popup .main-section { color: #333; border-radius: 4px; box-shadow: 0px 0px 16px 4px #333; 
-                           background: white url(http://subtlepatterns.com/patterns/light_toast.png); }
+                           background: white url(/images/light_toast.png); }
 
 
 /* MODAL INSIDE MODAL */
-.modal-popup .modal-modal { background: white url(http://subtlepatterns.com/patterns/light_toast.png); box-shadow: 0 -4px 3px -1px #333; clear: both;
+.modal-popup .modal-modal { background: white url(/images/light_toast.png); box-shadow: 0 -4px 3px -1px #333; clear: both;
                           float: left; position: absolute; border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; z-index: 1000 }
     
     .modal-popup .modal-modal > .close-modal { z-index: 100; position: absolute; right: 0; top: 8px; font-size: 18px; margin: 0; padding: 0;
@@ -472,7 +472,7 @@ ul.radio {}
 
     .new-post-view .create-post-section { font-size: 12px; clear: both; }        
         .new-post-view .create-post-section .post-box { color: #333; border-radius: 4px; padding: 12px; box-shadow: 0px 0px 16px 4px #333; 
-                           background: White url(http://subtlepatterns.com/patterns/light_toast.png); }
+                           background: White url(/images/light_toast.png); }
             
             .new-post-view .create-post-section .post-box .background .pic-container img.picture { width: 100% }
             .new-post-view .create-post-section .post-box .background .pic-container img.loading { float: left; padding: 12px; }
