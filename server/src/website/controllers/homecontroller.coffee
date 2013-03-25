@@ -9,17 +9,23 @@ class HomeController extends controller.Controller
 
 
     index: (req, res, next) =>
-        params = { meta: 'featured', state: 'complete', attachmentType: 'image' }
-        settings = { sort: { publishedAt: -1, uid: -1 }, limit: 2 }
+        params = { meta: 'featured', state: 'complete' }
+        settings = { sort: { publishedAt: -1, uid: -1 }, limit: 50 }
         
         models.Post.search params, settings, {}, (err, posts) =>
             if posts?.length
-                post = posts[0]
-                img = if post.attachmentType is 'image' then post.attachment
-                authors = [post.createdBy] 
-                for coauthor in post.coauthors
-                    authors.push coauthor
-                res.render 'home/index.hbs', { img, title: 'Write Poetry. Together.', authors, post }
+            #Find the first poem with an image and place it at the beginning
+                postWithImage = (p for p in posts when p.attachmentType is 'image')
+                if postWithImage.length
+                    postWithImage = postWithImage[0]                    
+                    posts = [postWithImage].concat (p for p in posts when p.uid isnt postWithImage.uid)    
+                    
+                for post in posts
+                    post.authors = [post.createdBy]
+                    for coauthor in post.coauthors
+                        post.authors.push coauthor
+                    
+                res.render 'home/index.hbs', { title: 'Write Poetry. Together.', posts }
             else
                 res.render 'index.hbs', { title: 'Write Poetry. Together.'}
 
@@ -30,12 +36,10 @@ class HomeController extends controller.Controller
         if uid
             models.Post.get { uid }, {}, (err, post) =>
                 if post
-                    img = if post.attachmentType is 'image' then post.attachment
-                    title = post.getPostName(30)
-                    authors = [post.createdBy] 
+                    post.authors = [post.createdBy]
                     for coauthor in post.coauthors
-                        authors.push coauthor
-                    res.render 'home/showpost.hbs', { img, title, authors, post }
+                        post.authors.push coauthor
+                    res.render 'home/showpost.hbs', { post }
                 else
                     res.render 'index.hbs', { title: 'Write Poetry. Together.'}
         else

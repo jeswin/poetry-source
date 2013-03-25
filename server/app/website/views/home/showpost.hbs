@@ -1,5 +1,9 @@
-{{#if img}}
-<img src="{{img}}" />
+{{#if post.title}}
+<h3>{{post.title}}</h3>
+{{/if}}
+
+{{#if post.attachment}}
+<img src="{{post.attachment}}" />
 {{/if}}
 
 {{#if post.selectedParts}}
@@ -11,7 +15,8 @@
 {{/if}}
 
 <div>
-{{#each authors}}
+{{#each post.authors}}
     <p><a href="/{{domain}}/{{username}}">{{name}}</a></p>
 {{/each}}
 </div>
+

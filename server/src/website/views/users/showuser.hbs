@@ -9,3 +9,22 @@
 </p>
 {{/if}}
 
+{{#each posts}}
+    {{#if attachment}}
+    <img src="{{attachment}}" />
+    {{/if}}
+
+    {{#if selectedParts}}
+    <div>
+    {{#each selectedParts}}
+        <p>{{content}}</p>
+    {{/each}}
+    </div>
+    {{/if}}
+
+    <div>
+    {{#each authors}}
+        <p><a href="/{{domain}}/{{username}}">{{name}}</a></p>
+    {{/each}}
+    </div>
+{{/each}}
