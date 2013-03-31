@@ -18,7 +18,7 @@ class UsersController extends controller.Controller
                     { 'coauthors.domain': user.domain, 'coauthors.username': user.username } 
                 ]
                 params.state = "complete"
-                settings = { sort: { uid: -1 } }        
+                settings = { sort: { uid: -1 }, limit: 50 }        
                 models.Post.search params, settings, { user: req.user }, (err, posts) =>           
                     for post in posts
                         post.authors = [post.createdBy]

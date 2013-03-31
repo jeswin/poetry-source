@@ -48,7 +48,8 @@
           settings = {
             sort: {
               uid: -1
-            }
+            },
+            limit: 50
           };
           return models.Post.search(params, settings, {
             user: req.user

@@ -304,7 +304,7 @@ ul.radio {}
             .post-list-view-item .post-box { border-radius: 4px; padding-bottom: 32px; background: #eee; margin-bottom: 20px }        
                 .post-list-view-item.boxed .parts p { font-family: 'Droid Serif', serif; margin: 8px 6px 8px 8px; color: #333; font-size: 12px; line-height: 16px }
 
-                .post-list-view-item div.tags { float: left; font-size: 10px; margin-right: 4px; margin-top: 8px; }
+                .post-list-view-item div.tags { float: left; font-size: 10px; margin-right: 4px; margin-top: 8px; width: 80%; height: 12px; overflow: hidden }
                     .post-list-view-item div.tags a { color: #666; padding-right: 3px; text-decoration: underline }
                         .post-list-view-item div.tags a:hover { color: orange }
                                                                       

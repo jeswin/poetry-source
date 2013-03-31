@@ -37,7 +37,7 @@
           publishedAt: -1,
           uid: -1
         },
-        limit: 50
+        limit: 25
       };
       return models.Post.search(params, settings, {}, function(err, posts) {
         var coauthor, p, post, postWithImage, _i, _j, _len, _len1, _ref1;
@@ -57,6 +57,7 @@
           })();
           if (postWithImage.length) {
             postWithImage = postWithImage[0];
+            postWithImage.image = postWithImage.attachment;
             posts = [postWithImage].concat((function() {
               var _i, _len, _results;
 
