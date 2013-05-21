@@ -70,17 +70,21 @@
         }, {
           user: req.user
         }, function(err, post) {
-          if (req.query.meta) {
-            if (post.meta.indexOf(req.query.meta) === -1) {
-              post.meta.push(req.query.meta);
-              return post.save({}, function() {
-                return res.send(post);
-              });
+          if (post) {
+            if (req.query.meta) {
+              if (post.meta.indexOf(req.query.meta) === -1) {
+                post.meta.push(req.query.meta);
+                return post.save({}, function() {
+                  return res.send(post);
+                });
+              } else {
+                return res.send("" + req.query.meta + " exists in meta.");
+              }
             } else {
-              return res.send("" + req.query.meta + " exists in meta.");
+              return res.send("Missing meta.");
             }
           } else {
-            return res.send("Missing meta.");
+            return res.send("Missing post.");
           }
         });
       });
@@ -98,22 +102,26 @@
           }, function(err, post) {
             var i;
 
-            post.meta = (function() {
-              var _i, _len, _ref1, _results;
+            if (post) {
+              post.meta = (function() {
+                var _i, _len, _ref1, _results;
 
-              _ref1 = post.meta;
-              _results = [];
-              for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
-                i = _ref1[_i];
-                if (i !== req.query.meta) {
-                  _results.push(i);
+                _ref1 = post.meta;
+                _results = [];
+                for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+                  i = _ref1[_i];
+                  if (i !== req.query.meta) {
+                    _results.push(i);
+                  }
                 }
-              }
-              return _results;
-            })();
-            return post.save({}, function() {
-              return res.send(post);
-            });
+                return _results;
+              })();
+              return post.save({}, function() {
+                return res.send(post);
+              });
+            } else {
+              return res.send("Missing post.");
+            }
           });
         } else {
           return res.send("Missing meta.");

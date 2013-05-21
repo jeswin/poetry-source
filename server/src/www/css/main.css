@@ -301,8 +301,9 @@ ul.radio {}
         .post-list-view-item { cursor: pointer }
             .post-list-view-item.boxed { color: #333; }
 
-            .post-list-view-item .post-box { border-radius: 4px; padding-bottom: 32px; background: #eee; margin-bottom: 20px }        
-                .post-list-view-item.boxed .parts p { font-family: 'Droid Serif', serif; margin: 8px 6px 8px 8px; color: #333; font-size: 12px; line-height: 16px }
+            .post-list-view-item .post-box { border-radius: 4px; padding-bottom: 32px; margin-bottom: 20px }        
+                .post-list-view-item .parts { margin-bottom: 0 }
+                .post-list-view-item.boxed .parts p { font-family: 'Droid Serif', serif; margin: 8px 6px 8px 8px; color: #ccc; font-size: 12px; line-height: 16px }
 
                 .post-list-view-item div.tags { float: left; font-size: 10px; margin-right: 4px; margin-top: 8px; width: 80%; height: 12px; overflow: hidden }
                     .post-list-view-item div.tags a { color: #666; padding-right: 3px; text-decoration: underline }
@@ -313,14 +314,14 @@ ul.radio {}
                                                                  border: none; box-shadow: 0px 1px 1px 1px #999; }
                                                                                                           
                 /* JUST TEXT */
-                .post-list-view-item.just-text .parts { border-top: 1px dashed #333; border-bottom: 1px dashed #333; margin-bottom: 6px; max-height: 400px; overflow: hidden }
+                .post-list-view-item.just-text .parts { max-height: 400px; overflow: hidden }
                 .post-list-view-item.just-text .authors { margin-left: 1px; }
-                .post-list-view-item.just-text h3.title { font-family: 'Droid Serif', serif; font-size: 13px; margin: 8px 4px 6px 2px; font-weight: bold; color: #ccc }
+                .post-list-view-item.just-text h3.title { font-family: 'Droid Serif', serif; font-size: 13px; margin: 8px 4px 6px 2px; font-weight: bold; }
                 .post-list-view-item.boxed.just-text .post-box { background: none; border-top-left-radius: 0; border-top-right-radius: 0 }
                     .post-list-view-item.boxed.just-text .parts p { margin-left: 0; color: #aaa; font-size: 13px; line-height: 18px }                  
 
                 /* WITH IMAGE */
-                .post-list-view-item.with-image .parts { margin-bottom: 6px; max-height: 400px; overflow: hidden }
+                .post-list-view-item.with-image .parts { max-height: 400px; overflow: hidden }
                 .post-list-view-item.with-image .authors { margin-left: 6px; }
                 .post-list-view-item.with-image h3.title { font-family: 'Droid Serif', serif; font-size: 12px; margin: 8px 8px 4px 8px }
                 .post-list-view-item.with-image .post-box .background img { width: 100% }

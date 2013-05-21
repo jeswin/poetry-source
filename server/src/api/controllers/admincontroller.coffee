@@ -24,26 +24,34 @@ class AdminController extends controller.Controller
     addMeta: (req, res, next) =>
         @ensureAdmin arguments, =>
             models.Post.get { uid: parseInt req.query.uid }, { user: req.user }, (err, post) =>
-                if req.query.meta
-                    if post.meta.indexOf(req.query.meta) is -1
-                        post.meta.push req.query.meta
-                        post.save {}, =>
-                            res.send post
+                if post
+                    if req.query.meta
+                        if post.meta.indexOf(req.query.meta) is -1
+                            post.meta.push req.query.meta
+                            post.save {}, =>
+                                res.send post
+                        else
+                            res.send "#{req.query.meta} exists in meta."
                     else
-                        res.send "#{req.query.meta} exists in meta."
+                        res.send "Missing meta."                    
                 else
-                    res.send "Missing meta."                    
+                    res.send "Missing post."
+                    
                     
                     
     deleteMeta: (req, res, next) =>
         @ensureAdmin arguments, =>
             if req.query.meta
                 models.Post.get { uid: parseInt req.query.uid }, { user: req.user }, (err, post) =>
-                    post.meta = (i for i in post.meta when i isnt req.query.meta)
-                    post.save {}, =>
-                        res.send post
+                    if post
+                        post.meta = (i for i in post.meta when i isnt req.query.meta)
+                        post.save {}, =>
+                            res.send post
+                    else
+                        res.send "Missing post."                            
             else
                 res.send "Missing meta."                      
+
 
                     
     impersonate: (req, res, next) =>
