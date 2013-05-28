@@ -338,6 +338,8 @@ class PostsController extends controller.Controller
     getComments: (req, res, next) =>
         @attachUser arguments, =>
             models.Comment.getAll { postid: req.params.id }, {user: req.user}, (err, comments) =>
+                comments.sort (c1, c2) ->
+                    if c1.timestamp > c2.timestamp then 1 else -1     
                 if not err
                     res.send comments
                 else

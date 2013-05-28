@@ -299,11 +299,11 @@ ul.radio {}
     .post-list-view .items { position: relative; }
 
         .post-list-view-item { cursor: pointer }
-            .post-list-view-item.boxed { color: #333; }
+            .post-list-view-item.boxed { color: #666; }
 
             .post-list-view-item .post-box { border-radius: 4px; padding-bottom: 32px; margin-bottom: 32px }        
                 .post-list-view-item .parts { margin-bottom: 6px; max-height: 400px; overflow: hidden }
-                .post-list-view-item.boxed .parts p { font-family: 'Droid Serif', serif; margin: 8px 6px 8px 0px; color: #aaa; font-size: 12px; line-height: 18px }
+                .post-list-view-item.boxed .parts p { font-family: 'Droid Serif', serif; margin: 8px 6px 8px 0px; color: #ccc; font-size: 12px; line-height: 18px }
 
                 .post-list-view-item div.tags { float: left; font-size: 10px; margin-right: 4px; margin-top: 8px; width: 80%; height: 12px; overflow: hidden }
                     .post-list-view-item div.tags a { color: #666; padding-right: 3px; text-decoration: underline }

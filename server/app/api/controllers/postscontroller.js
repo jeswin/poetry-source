@@ -598,6 +598,13 @@
         }, {
           user: req.user
         }, function(err, comments) {
+          comments.sort(function(c1, c2) {
+            if (c1.timestamp > c2.timestamp) {
+              return 1;
+            } else {
+              return -1;
+            }
+          });
           if (!err) {
             return res.send(comments);
           } else {
