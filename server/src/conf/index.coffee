@@ -1,6 +1,6 @@
 #Database
 if process.env.NODE_ENV is 'development'
-    db = { name: 'poetry-db-dev', host: '127.0.0.1' }
+    db = { name: 'poetry-db-dev', host: '127.0.0.1', port: 27017 }
 
     twitter = {
         TWITTER_CONSUMER_KEY: 'YOUR_TWITTER_KEY'
@@ -9,7 +9,7 @@ if process.env.NODE_ENV is 'development'
     }
 
 else
-    db = { name: 'poetry-db', host: '127.0.0.1' }
+    db = { name: 'poetry-db', host: '127.0.0.1', port: 27017 }
 
     twitter = {
         TWITTER_CONSUMER_KEY: 'YOUR_TWITTER_KEY'

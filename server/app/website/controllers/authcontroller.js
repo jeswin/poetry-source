@@ -19,7 +19,7 @@
 
   OAuth = require('oauth').OAuth;
 
-  oa = new OAuth("https://api.twitter.com/oauth/request_token", "https://api.twitter.com/oauth/access_token", conf.auth.twitter.TWITTER_CONSUMER_KEY, conf.auth.twitter.TWITTER_SECRET, "1.0", conf.auth.twitter.TWITTER_CALLBACK, "HMAC-SHA1");
+  oa = new OAuth("https://api.twitter.com/oauth/request_token", "https://api.twitter.com/oauth/access_token", conf.auth.twitter.TWITTER_CONSUMER_KEY, conf.auth.twitter.TWITTER_SECRET, "1.0A", conf.auth.twitter.TWITTER_CALLBACK, "HMAC-SHA1");
 
   AuthController = (function(_super) {
     __extends(AuthController, _super);
@@ -79,44 +79,36 @@
             oauth = token.value;
             oauth.verifier = req.query.oauth_verifier;
             return oa.getOAuthAccessToken(oauth.token, oauth.token_secret, oauth.verifier, function(error, accessToken, accessTokenSecret, results) {
-              var response;
-
               if (error) {
                 console.log(error);
                 return res.send("Could not connect to Twitter.");
               } else {
                 console.log("Twitter: authenticated " + results.screen_name);
-                response = '';
-                return https.get("https://api.twitter.com/1/users/lookup.json?screen_name=" + results.screen_name, function(_res) {
-                  _res.on('data', function(d) {
-                    return response += d;
-                  });
-                  return _res.on('end', function() {
-                    var resp, userDetails;
+                return oa.get("https://api.twitter.com/1.1/users/lookup.json?screen_name=" + results.screen_name, accessToken, accessTokenSecret, function(e, data, _res) {
+                  var userDetails;
 
-                    resp = JSON.parse(response);
-                    if (resp.length && (resp[0] != null)) {
-                      userDetails = _this.parseTwitterUserDetails(resp[0]);
-                      return models.User.getOrCreateUser(userDetails, 'tw', accessToken, function(err, _user, _session) {
-                        res.clearCookie("oauth_process_key");
-                        res.cookie("userid", _user._id.toString());
-                        res.cookie("domain", "tw");
-                        res.cookie("username", _user.username);
-                        res.cookie("fullName", _user.name);
-                        res.cookie("passkey", _session.passkey);
-                        return res.send('\
+                  data = JSON.parse(data);
+                  if (data.length && (data[0] != null)) {
+                    userDetails = _this.parseTwitterUserDetails(data[0]);
+                    return models.User.getOrCreateUser(userDetails, 'tw', accessToken, function(err, _user, _session) {
+                      res.clearCookie("oauth_process_key");
+                      res.cookie("userid", _user._id.toString());
+                      res.cookie("domain", "tw");
+                      res.cookie("username", _user.username);
+                      res.cookie("fullName", _user.name);
+                      res.cookie("passkey", _session.passkey);
+                      return res.send('\
                                                 <html>\
                                                     <script type="text/javascript">\
                                                         window.location.href = "/";\
                                                     </script>\
                                                     <body></body>\
                                                 </html>');
-                      });
-                    } else {
-                      console.log(response);
-                      return res.send("Invalid response.");
-                    }
-                  });
+                    });
+                  } else {
+                    console.log(JSON.stringify(data));
+                    return res.send("Invalid response.");
+                  }
                 });
               }
             });
@@ -139,8 +131,8 @@
         name: (_ref2 = userDetails.name) != null ? _ref2 : userDetails.screen_name,
         location: (_ref3 = userDetails.location) != null ? _ref3 : '',
         email: "twitteruser@poe3.com",
-        picture: "https://api.twitter.com/1/users/profile_image?screen_name=" + userDetails.screen_name + "&size=bigger",
-        thumbnail: "https://api.twitter.com/1/users/profile_image?screen_name=" + userDetails.screen_name + "&size=normal"
+        picture: userDetails.profile_image_url,
+        thumbnail: userDetails.profile_image_url
       };
     };
 

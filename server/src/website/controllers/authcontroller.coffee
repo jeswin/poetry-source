@@ -12,7 +12,7 @@ oa = new OAuth(
 	"https://api.twitter.com/oauth/access_token",
 	conf.auth.twitter.TWITTER_CONSUMER_KEY,
 	conf.auth.twitter.TWITTER_SECRET,
-	"1.0",
+	"1.0A",
 	conf.auth.twitter.TWITTER_CALLBACK,	
 	"HMAC-SHA1"
 )
@@ -63,14 +63,13 @@ class AuthController extends controller.Controller
                         else
                             console.log "Twitter: authenticated #{results.screen_name}"
                             
-                            response = ''                                    
-                            https.get "https://api.twitter.com/1/users/lookup.json?screen_name=#{results.screen_name}", (_res) =>
-                                _res.on 'data', (d) =>
-                                    response += d                                    
-                                _res.on 'end', =>
-                                    resp = JSON.parse response
-                                    if resp.length and resp[0]?
-                                        userDetails = @parseTwitterUserDetails resp[0]
+                            oa.get "https://api.twitter.com/1.1/users/lookup.json?screen_name=#{results.screen_name}",
+                                accessToken,
+                                accessTokenSecret,
+                                (e, data, _res) =>
+                                    data = JSON.parse data
+                                    if data.length and data[0]?
+                                        userDetails = @parseTwitterUserDetails data[0]
                                         models.User.getOrCreateUser userDetails, 'tw', accessToken, (err, _user, _session) =>
                                             res.clearCookie "oauth_process_key"
                                             res.cookie "userid", _user._id.toString()
@@ -87,7 +86,7 @@ class AuthController extends controller.Controller
                                                 </html>'
                                                         
                                     else
-                                        console.log response
+                                        console.log JSON.stringify data
                                         res.send "Invalid response."                            
                 else
                     console.log "No token"
@@ -104,8 +103,8 @@ class AuthController extends controller.Controller
             name: userDetails.name ? userDetails.screen_name,
             location: userDetails.location ? '',
             email: "twitteruser@poe3.com",
-            picture: "https://api.twitter.com/1/users/profile_image?screen_name=#{userDetails.screen_name}&size=bigger",
-            thumbnail: "https://api.twitter.com/1/users/profile_image?screen_name=#{userDetails.screen_name}&size=normal"
+            picture: userDetails.profile_image_url,
+            thumbnail: userDetails.profile_image_url
         }                
             
 
